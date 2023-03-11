@@ -15,13 +15,19 @@
     
     <select id="selectAdminList" resultMap="adminResultSet">
         SELECT ADMIN_ID
+             , ADMIN_PW
              , ADMIN_NM
+             , ADMIN_MDF_DATE
+             , ADMIN_REG_DATE
           FROM ADMIN
     </select>
     
     <select id="selectAdmin" resultMap="adminResultSet" parameterType="String">
         SELECT ADMIN_ID
+             , ADMIN_PW
              , ADMIN_NM
+             , ADMIN_MDF_DATE
+             , ADMIN_REG_DATE
           FROM ADMIN
          WHERE ADMIN_ID = #{adminId}
     </select>
@@ -38,5 +44,11 @@
                         , #{adminNm}
                         )
     </insert>
+    
+    <delete id="deleteAdmin">
+        DELETE
+          FROM ADMIN
+         WHERE ADMIN_ID = #{adminId}
+    </delete>
     
 </mapper>

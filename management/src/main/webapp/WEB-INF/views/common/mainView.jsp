@@ -17,7 +17,6 @@
         <button type="button" onclick="location.href='deleteForm.ad';">계정 삭제</button>
         <br><hr><br>
         <button type="button" onclick="location.href='selectForm.ad';">계정 정보 조회</button>
-        
 	</div>
 </body>
 </html>

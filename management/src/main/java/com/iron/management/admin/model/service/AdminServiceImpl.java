@@ -32,4 +32,9 @@ public class AdminServiceImpl implements AdminService {
     public ArrayList<Admin> selectAdminList() {
         return adminDao.selectAdminList(sqlSession);
     }
+
+    @Override
+    public int deleteAdmin(String adminId) {
+        return adminDao.deleteAdmin(sqlSession);
+    }
 }

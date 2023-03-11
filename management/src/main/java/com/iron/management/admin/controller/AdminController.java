@@ -27,11 +27,16 @@ public class AdminController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptpasswordEncoder;
 	
+	
+	@RequestMapping("home.go")
+    public String goToHome() {
+        return "redirect:/";
+    }
+	
     @RequestMapping("insertForm.ad")
     public String goToInsertForm() {
         return "admin/insertForm";
     }
-    
     
 	// 계정 등록
 	@PostMapping("insert.ad")
@@ -39,9 +44,7 @@ public class AdminController {
 							HttpSession session,
 							Model model) {
 		
-		System.out.println("원본 패스워드 : "+adm.getAdminPw());
 		String encPw = bcryptpasswordEncoder.encode(adm.getAdminPw());
-		System.out.println("암호화 패스워드 : "+encPw);
 		
 		adm.setAdminPw(encPw);
 		
@@ -55,7 +58,6 @@ public class AdminController {
 			
 			return "common/errorPage";
 		}
-	
 	}
 	
 	@RequestMapping("updateForm.ad")
@@ -63,23 +65,19 @@ public class AdminController {
 	    return "admin/updateForm";
 	}
 	
-
     // 계정 정보 수정
 	@RequestMapping("update.ad")
     public String updateAdmin(Admin adm,
                             HttpSession session,
                             Model model) {
-        System.out.println("입력 패스워드 : "+adm.getAdminPw());
-        String encPw = bcryptpasswordEncoder.encode(adm.getAdminPw());
-        System.out.println("입력한 패스워드 : "+encPw);
-        
-        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
-        if( !dbAdm.equals(encPw) ) {
+
+        if( !checkPwd(adm) ) {
             model.addAttribute("errorMsg","비밀번호 불일치");
             return "common/errorPage";
         }
         
-        adm.setAdminPw(encPw);
+        // 새 비밀번호를 암호화하여 adminPw에 대입
+        adm.setAdminPw(bcryptpasswordEncoder.encode(adm.getAdminNewPw()));
         
         int result = adminService.insertAdmin(adm);
         
@@ -91,8 +89,8 @@ public class AdminController {
             
             return "common/errorPage";
         }
-    
     }
+	
 	
     @RequestMapping("deleteForm.ad")
     public String goToDeleteForm() {
@@ -103,15 +101,26 @@ public class AdminController {
     public String deleteAdmin(Admin adm
                             , HttpSession session
                             , Model model) {
-        System.out.println("id : " + adm.getAdminId());
-        System.out.println("pw : " + adm.getAdminPw());
+        
+        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
         
         // 조회해서 비밀번호 같으면 삭제
+        if( !bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
+            model.addAttribute("errorMsg","비밀번호 불일치");
+            return "common/errorPage";
+        }
         
+        int result = adminService.deleteAdmin(adm.getAdminId());
         
+        if(result>0) {
+            session.setAttribute("alertMsg", "삭제 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","계정 삭제 실패");
+            
+            return "common/errorPage";
+        }
         
-        
-        return "redirect:/";
     }
     
 
@@ -132,5 +141,6 @@ public class AdminController {
         ArrayList<Admin> list = adminService.selectAdminList();
         return new Gson().toJson(list);
     }
+    
     
 }
