@@ -1,5 +1,7 @@
 package com.iron.management.admin.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,4 +22,14 @@ public class AdminServiceImpl implements AdminService {
 	public int insertAdmin(Admin adm) {
 		return adminDao.insertAdmin(sqlSession, adm);
 	}
+
+    @Override
+    public Admin selectAdmin(String adminId) {
+        return adminDao.selectAdmin(sqlSession, adminId);
+    }
+
+    @Override
+    public ArrayList<Admin> selectAdminList() {
+        return adminDao.selectAdminList(sqlSession);
+    }
 }

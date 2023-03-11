@@ -9,25 +9,15 @@
 </head>
 <body>
 	<div class="mainDiv">
-		<form action="insert.ad" method="post">
-			<div class="insert-group">
-				<label for="adminId">ID : </label>
-				<input type="text" class="insertAdmin" id="adminId" name="adminId" required>
-				
-				<label for="adminPw">ID : </label>
-				<input type="text" class="insertAdmin" id="adminPw" name="adminPw" required>
-				
-				<label for="adminChk">ID : </label>
-				<input type="text" class="insertAdmin" id="adminChk" name="adminChk" required>
-				
-				<label for="adminNm">ID : </label>
-				<input type="text" class="insertAdmin" id="adminNm" name="adminNm" required>
-			</div><br>
-			<div class="insert-btn" align="center">
-				<button type="submit" class="enrollBtn">등록</button>
-				<button type="reset">초기화</button>
-			</div>
-		</form>
+        <br><hr><br>
+        <button type="button" onclick="location.href='insertForm.ad';">계정 등록</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='updateForm.ad';">계정 수정</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='deleteForm.ad';">계정 삭제</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='selectForm.ad';">계정 정보 조회</button>
+        
 	</div>
 </body>
 </html>
