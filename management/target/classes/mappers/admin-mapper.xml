@@ -13,15 +13,17 @@
         <result column="ADMIN_MDF_DATE" property="adminRegDate" />
     </resultMap>
     
-    <select id="adminList" resultMap="adminResultSet">
-        SELECT *
+    <select id="selectAdminList" resultMap="adminResultSet">
+        SELECT ADMIN_ID
+             , ADMIN_NM
           FROM ADMIN
     </select>
     
-    <select id="detailAdmin" resultMap="adminResultSet">
-        SELECT *
+    <select id="selectAdmin" resultMap="adminResultSet" parameterType="String">
+        SELECT ADMIN_ID
+             , ADMIN_NM
           FROM ADMIN
-         WHERE ADMIN_ID=#{adminId}
+         WHERE ADMIN_ID = #{adminId}
     </select>
     
     <insert id="insertAdmin" parameterType="admin">
@@ -36,4 +38,5 @@
                         , #{adminNm}
                         )
     </insert>
-  </mapper>
+    
+</mapper>
