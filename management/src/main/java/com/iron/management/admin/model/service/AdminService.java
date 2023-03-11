@@ -15,5 +15,7 @@ public interface AdminService {
     Admin selectAdmin(String adminId);
 
     ArrayList<Admin> selectAdminList();
+
+    int deleteAdmin(String adminId);
 	
 }

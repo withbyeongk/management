@@ -22,4 +22,8 @@ public class AdminDao {
         return (ArrayList)sqlSession.selectList("adminMapper.selectAdminList");
     }
 
+    public int deleteAdmin(SqlSessionTemplate sqlSession) {
+        return sqlSession.delete("adminMapper.deleteAdmin");
+    }
+
 }

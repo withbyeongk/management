@@ -10,6 +10,7 @@ import lombok.Data;
 public class Admin {
 	private String adminId;
 	private String adminPw;
+	private String adminNewPw;
 	private String adminChk;
 	private String adminNm;
 	private Date adminMdfDate;
