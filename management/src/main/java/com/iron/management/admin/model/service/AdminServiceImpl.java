@@ -35,6 +35,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int deleteAdmin(String adminId) {
-        return adminDao.deleteAdmin(sqlSession);
+        return adminDao.deleteAdmin(sqlSession, adminId);
+    }
+
+    @Override
+    public int updateAdmin(Admin adm) {
+        return adminDao.updateAdmin(sqlSession, adm);
     }
 }

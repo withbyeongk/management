@@ -44,6 +44,32 @@ public class AdminController {
 							HttpSession session,
 							Model model) {
 		
+	    // 입력 확인
+	    if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+            model.addAttribute("errorMsg","ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
+            return "common/errorPage";
+        }
+        if(adm.getAdminChk()==null || "".equals(adm.getAdminChk())) {
+            model.addAttribute("errorMsg","비밀번호 확인 다시 필요");
+            return "common/errorPage";
+        }
+        if(adm.getAdminNm()==null || "".equals(adm.getAdminNm())) {
+            model.addAttribute("errorMsg","이름 입력 필요");
+            return "common/errorPage";
+        }
+	    
+	    
+	    // 입력한 ID로 조회하여 중복 확인
+	    Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+	    if(dbAdm != null) {
+	        model.addAttribute("errorMsg","이미 존재하는 ID");
+            return "common/errorPage";
+	    }
+	    
 		String encPw = bcryptpasswordEncoder.encode(adm.getAdminPw());
 		
 		adm.setAdminPw(encPw);
@@ -71,24 +97,53 @@ public class AdminController {
                             HttpSession session,
                             Model model) {
 
-        if( !checkPwd(adm) ) {
-            model.addAttribute("errorMsg","비밀번호 불일치");
+        // 입력 확인
+	    if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+	        model.addAttribute("errorMsg","ID 입력 필요");
+            return "common/errorPage";
+	    }
+	    if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
             return "common/errorPage";
         }
-        
-        // 새 비밀번호를 암호화하여 adminPw에 대입
-        adm.setAdminPw(bcryptpasswordEncoder.encode(adm.getAdminNewPw()));
-        
-        int result = adminService.insertAdmin(adm);
-        
-        if(result>0) {
-            session.setAttribute("alertMsg", "계정 정보 수정 완료");
-            return "redirect:/";
-        }else {
-            model.addAttribute("errorMsg","계정 정보 수정 실패");
+	    if(adm.getAdminNewPw()==null || "".equals(adm.getAdminNewPw())) {
+            model.addAttribute("errorMsg","새 비밀번호 입력 필요");
+            return "common/errorPage";
+        }
+	    if(adm.getAdminChk()==null || "".equals(adm.getAdminChk())) {
+            model.addAttribute("errorMsg","새 비밀번호 확인 다시 입력");
+            return "common/errorPage";
+        }
+	    
+	    // 조회해서 비밀번호 같으면 수정
+	    Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+	    
+        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
             
-            return "common/errorPage";
+            
+            if(adm.getAdminNewPw().equals(adm.getAdminChk())) {
+                
+                // 새 비밀번호를 암호화하여 다시 담기
+                String encNewPw = bcryptpasswordEncoder.encode(adm.getAdminNewPw());
+                adm.setAdminNewPw(encNewPw);
+                
+                int result = adminService.updateAdmin(adm);
+                
+                if(result>0) {
+                    session.setAttribute("alertMsg", "수정 완료");
+                    return "redirect:/";
+                }else {
+                    model.addAttribute("errorMsg","수정 실패");
+                    return "common/errorPage";
+                }
+            }
+            else {
+                model.addAttribute("errorMsg","새 비밀번호 재입력");
+                return "common/errorPage";
+            }
         }
+        model.addAttribute("errorMsg","비밀번호 불일치");
+        return "common/errorPage";
     }
 	
 	
@@ -101,25 +156,35 @@ public class AdminController {
     public String deleteAdmin(Admin adm
                             , HttpSession session
                             , Model model) {
-        
-        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+        // 입력 확인
+        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+            model.addAttribute("errorMsg","ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
+            return "common/errorPage";
+        }
         
         // 조회해서 비밀번호 같으면 삭제
-        if( !bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
-            model.addAttribute("errorMsg","비밀번호 불일치");
-            return "common/errorPage";
-        }
+        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
         
-        int result = adminService.deleteAdmin(adm.getAdminId());
-        
-        if(result>0) {
-            session.setAttribute("alertMsg", "삭제 완료");
-            return "redirect:/";
-        }else {
-            model.addAttribute("errorMsg","계정 삭제 실패");
+        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
+
+            int result = adminService.deleteAdmin(adm.getAdminId());
             
-            return "common/errorPage";
+            if(result>0) {
+                session.setAttribute("alertMsg", "삭제 완료");
+                return "redirect:/";
+            }else {
+                model.addAttribute("errorMsg","계정 삭제 실패");
+                
+                return "common/errorPage";
+            }
         }
+        
+        model.addAttribute("errorMsg","비밀번호 불일치");
+        return "common/errorPage";
         
     }
     

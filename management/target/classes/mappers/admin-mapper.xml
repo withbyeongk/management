@@ -51,4 +51,10 @@
          WHERE ADMIN_ID = #{adminId}
     </delete>
     
+    <update id="updateAdmin">
+        UPDATE ADMIN
+           SET ADMIN_PW = #{adminNewPw}
+             , ADMIN_NM = #{adminNm}
+         WHERE ADMIN_ID = #{adminId}
+    </update>
 </mapper>
