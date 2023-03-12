@@ -37,11 +37,13 @@
                           ADMIN_ID
                         , ADMIN_PW
                         , ADMIN_NM
+                        , ADMIN_REG_DATE
                         )
                 VALUES (
                           #{adminId}
                         , #{adminPw}
                         , #{adminNm}
+                        , NOW()
                         )
     </insert>
     
@@ -55,6 +57,7 @@
         UPDATE ADMIN
            SET ADMIN_PW = #{adminNewPw}
              , ADMIN_NM = #{adminNm}
+             , ADMIN_MDF_DATE = NOW()
          WHERE ADMIN_ID = #{adminId}
     </update>
 </mapper>
