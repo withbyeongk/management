@@ -3,8 +3,8 @@
 <configuration>
 	
 	<typeAliases>
-		<!-- 관리자 -->
 		<typeAlias type="com.iron.management.admin.model.vo.Admin" alias="admin"/>
+        <typeAlias type="com.iron.management.menu.model.vo.Menu" alias="menu"/>
 	</typeAliases>
     
 </configuration>
