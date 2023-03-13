@@ -20,7 +20,7 @@
           FROM MENU
     </select>
     
-    <select id="selectMenu" resultMap="menuResultSet">
+    <select id="selectMenuById" resultMap="menuResultSet">
         SELECT MENU_ID
              , MENU_NM
              , MENU_URL
@@ -33,7 +33,7 @@
          WHERE MENU_ID = #{menuId}
     </select>
     
-    <select id="selectMenuList" resultMap="menuResultSet">
+    <select id="selectMenuByName" resultMap="menuResultSet">
         SELECT MENU_ID
              , MENU_NM
              , MENU_URL
@@ -43,25 +43,61 @@
              , MENU_MDF_DATE
              , MENU_REG_DATE
           FROM MENU
+         WHERE MENU_NM = #{menuNm}
+    </select>
+    
+    <select id="selectMenuList" resultMap="menuResultSet">
+        SELECT M1.MENU_ID
+             , M1.MENU_NM
+             , M1.MENU_REF_ID
+             , M1.MENU_LEVEL
+             , M1.MENU_ORDER
+             , CASE WHEN M2.MENU_ID IS NULL THEN LPAD(CONVERT(M1.MENU_ID, CHAR(4)), 4, '0')
+                    WHEN M3.MENU_ID IS NULL THEN CONCAT(LPAD(CONVERT(M2.MENU_ID, CHAR(4)), 4, '0')
+                                                      , LPAD(CONVERT(M1.MENU_ID, CHAR(4)), 4, '0'))
+                    ELSE CONCAT(LPAD(CONVERT(M3.MENU_ID, CHAR(4)), 4, '0')
+                              , LPAD(CONVERT(M2.MENU_ID, CHAR(4)), 4, '0')
+                              , LPAD(CONVERT(M1.MENU_ID, CHAR(4)), 4, '0'))
+                END SEQ_CHAR
+             , CASE WHEN M2.MENU_ID IS NULL THEN 1
+                    WHEN M3.MENU_ID IS NULL THEN 2
+                    ELSE 3
+                END AS MENU_LEVEL
+          FROM IRON_MENU M1
+          LEFT OUTER JOIN IRON_MENU M2 ON M1.MENU_REF_ID = M2.MENU_ID
+          LEFT OUTER JOIN IRON_MENU M3 ON M2.MENU_REF_ID = M3.MENU_ID
+         ORDER BY SEQ_CHAR;
     </select>
     
     <insert id="insertMenu" parameterType="menu">
-        INSERT INTO MENU (
-                          MENU_NM
-                        , MENU_URL
-                        , MENU_LEVEL
-                        , MENU_REF_ID
-                        , MENU_ORDER
-                        , MENU_REG_DATE
-                        )
-                VALUES (
-                          #{menuNm}
-                        , #{menuUrl}
-                        , #{menuLevel}
-                        , #{menuRefId}
-                        , #{menuOrder}
-                        , NOW()
-                        )
+        INSERT INTO IRON_MENU (
+                              MENU_ID
+                            , MENU_NM
+                            , MENU_URL
+                            , MENU_REF_ID
+                            , MENU_LEVEL
+                            , MENU_ORDER
+                            , MENU_REG_DATE
+                            )
+                       VALUES (
+                              (SELECT MAX(M_MAX.MENU_ID) +1
+                                 FROM IRON_MENU AS M_MAX
+                              )
+                            , #{menuNm}
+                            , #{menuUrl}
+                            , #{menuRefId}
+                            , #{menuLevel}
+                            , (
+                               SELECT 
+                                 CASE WHEN MAX(M_ORDER.MENU_ORDER) IS NULL THEN 0
+                                      ELSE M_ORDER.MENU_ORDER+1
+                                      END AS MAX_ORDER
+                                 FROM IRON_MENU AS M_ORDER
+                                WHERE M_ORDER.MENU_REF_ID = #{menuRefId}
+                                  AND M_ORDER.MENU_LEVEL = #{menuLevel}
+                            ) 
+                            , NOW()
+                            );
     </insert>
     
     <delete id="deleteMenu">
@@ -79,5 +115,38 @@
              , MENU_ORDER    = #{menuOrder}
              , MENU_MDF_DATE = NOW()
          WHERE MENU_ID = #{menuId}
+    </update>
+    
+    <update id="updateMenuInfo">
+        UPDATE IRON_MENU
+           SET MENU_NM       = #{menuNm}
+             , MENU_URL      = #{menuUrl}
+             , MENU_MDF_DATE = NOW()
+         WHERE MENU_ID  = #{menuId};
+    </update>
+    
+    <update id="updateBeforeSort">
+        UPDATE IRON_MENU
+           SET MENU_ORDER = MENU_ORDER - 1
+         WHERE MENU_REF_ID = #{menuRefId}
+           AND MENU_LEVEL = #{menuLevel}
+           AND MENU_ORDER > #{menuOrder};  <!-- 옮기기 전 메뉴의 ORDER로 수정할 것 -->
+    </update>
+    
+    <update id="updateAfterSort">
+        UPDATE IRON_MENU
+           SET MENU_ORDER = MENU_ORDER + 1
+         WHERE MENU_REF_ID = #{menuRefId}   <!-- 메뉴가 옮겨질 곳 상위메뉴 ID -->
+           AND MENU_LEVEL = #{menuLevel}    <!-- 상위메뉴의 level +1 -->
+           AND MENU_ORDER <= #{menuOrder};  <!-- 옮겨질 메뉴의 순서 -->
+    </update>
+    
+    <update id="updateMoveMenu">
+        UPDATE IRON_MENU
+           SET MENU_REF_ID   = #{menuRefId} <!-- 메뉴가 옮겨질 곳 상위 메뉴 ID -->
+             , MENU_LEVEL    = #{menuLevel} <!-- 상위 메뉴 level + 1 -->
+             , MENU_ORDER    = #{menuOrder} <!-- 옮겨질 위치 순서 -->
+             , MENU_MDF_DATE = NOW()
+         WHERE MENU_ID = 13;
     </update>
 </mapper>
