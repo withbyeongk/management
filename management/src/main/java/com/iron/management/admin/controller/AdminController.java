@@ -203,8 +203,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value="selectAdminList.ad",produces="application/json; charset=UTF-8")
     public String selectAdminList(HttpSession session, Model model) {
-        ArrayList<Admin> list = adminService.selectAdminList();
-        return new Gson().toJson(list);
+        return new Gson().toJson(adminService.selectAdminList());
     }
     
     
