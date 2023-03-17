@@ -30,6 +30,15 @@
         <button type="button" onclick="location.href='selectForm.mn';">메뉴 정보 조회</button>
         <br><hr><hr><br>
         
+        <h1>사이트 관리</h1>
+        <button type="button" onclick="location.href='insertForm.st';">사이트 등록</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='updateForm.st';">사이트 수정</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='deleteForm.st';">사이트 삭제</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='selectForm.st';">사이트 정보 조회</button>
+        <br><hr><hr><br>
         
 	</div>
 </body>
