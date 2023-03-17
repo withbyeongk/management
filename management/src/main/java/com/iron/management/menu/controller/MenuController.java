@@ -30,41 +30,27 @@ public class MenuController {
 
     // 계정 등록
     @PostMapping("insert.mn")
-    public String insertMenu(String menuNm,
+    public String insertMenu(Menu menu,
                             HttpSession session,
                             Model model) {
-        
         // 입력 확인
-        if(menuNm==null || "".equals(menuNm)) {
-            model.addAttribute("errorMsg","이름 입력 필요");
+        if(menu.getMenuNm()==null || "".equals(menu.getMenuNm())) {
+            model.addAttribute("errorMsg","메뉴명 입력 필요");
             return "common/errorPage";
         }
-        if(menuNm==null || "".equals(menuNm)) {
-            model.addAttribute("errorMsg","이름 입력 필요");
-            return "common/errorPage";
-        }
-        if(menuNm==null || "".equals(menuNm)) {
-            model.addAttribute("errorMsg","이름 입력 필요");
-            return "common/errorPage";
-        }
-        if(menuNm==null || "".equals(menuNm)) {
-            model.addAttribute("errorMsg","이름 입력 필요");
-            return "common/errorPage";
-        }
-        if(menuNm==null || "".equals(menuNm)) {
-            model.addAttribute("errorMsg","이름 입력 필요");
+        if(menu.getMenuUrl()==null || "".equals(menu.getMenuUrl())) {
+            model.addAttribute("errorMsg","이동 URL 입력 필요");
             return "common/errorPage";
         }
         
-        
-        // 입력한 ID로 조회하여 중복 확인
-        Menu dbMenu = menuService.selectMenu(menuNm);
+        // 메뉴명 중복 확인
+        Menu dbMenu = menuService.selectMenu(menu.getMenuNm());
         if(dbMenu != null) {
             model.addAttribute("errorMsg","이미 존재하는 메뉴명");
             return "common/errorPage";
         }
         
-        int result = menuService.insertMenu(menuNm);
+        int result = menuService.insertMenu(menu);
         
         if(result>0) {
             session.setAttribute("alertMsg", "메뉴 등록 완료");
@@ -85,119 +71,96 @@ public class MenuController {
     public String updateMenu(Menu menu,
                             HttpSession session,
                             Model model) {
-
+        System.out.println("UDPATE");
+        System.out.println(menu);
         // 입력 확인
-        /*
-        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
-            model.addAttribute("errorMsg","ID 입력 필요");
+        if(menu.getMenuId()==0) {
+            model.addAttribute("errorMsg","메뉴ID 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
-            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
+        if(menu.getMenuNm()==null || "".equals(menu.getMenuNm())) {
+            model.addAttribute("errorMsg","메뉴명 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminNewPw()==null || "".equals(adm.getAdminNewPw())) {
-            model.addAttribute("errorMsg","새 비밀번호 입력 필요");
+        if(menu.getMenuUrl()==null || "".equals(menu.getMenuUrl())) {
+            model.addAttribute("errorMsg","이동 URL 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminChk()==null || "".equals(adm.getAdminChk())) {
-            model.addAttribute("errorMsg","새 비밀번호 확인 다시 입력");
+        if(menu.getMenuRefId()==0) {
+            model.addAttribute("errorMsg","상위 메뉴 ID 입력 필요");
             return "common/errorPage";
-        }*/
+        }
+        if(menu.getMenuLevel()==0) {
+            model.addAttribute("errorMsg","이름 입력 필요");
+            return "common/errorPage";
+        }
+        if(menu.getMenuOrder()==0) {
+            model.addAttribute("errorMsg","이름 입력 필요");
+            return "common/errorPage";
+        }
         
-        // 조회해서 비밀번호 같으면 수정
-        /*
-        Admin dbMenu = menuService.selectMenu(menu.getMenuId());
+        Menu beforeMenu = menuService.selectMenu(menu.getMenuId());
+        System.out.println("beforeMenu"+beforeMenu);
+        menu.setBeforeRefId(beforeMenu.getMenuRefId());
+        menu.setBeforeLevel(beforeMenu.getMenuLevel());
+        menu.setBeforeOrder(beforeMenu.getMenuOrder());
+
+        System.out.println(menu);
+        int result = menuService.updateMenu(menu);
         
-        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
-            
-            
-            if(adm.getAdminNewPw().equals(adm.getAdminChk())) {
-                
-                // 새 비밀번호를 암호화하여 다시 담기
-                String encNewPw = bcryptpasswordEncoder.encode(adm.getAdminNewPw());
-                adm.setAdminNewPw(encNewPw);
-                
-                int result = adminService.updateAdmin(adm);
-                
-                if(result>0) {
-                    session.setAttribute("alertMsg", "수정 완료");
-                    return "redirect:/";
-                }else {
-                    model.addAttribute("errorMsg","수정 실패");
-                    return "common/errorPage";
-                }
-            }
-            else {
-                model.addAttribute("errorMsg","새 비밀번호 재입력");
-                return "common/errorPage";
-            }
+        if(result>0) {
+            session.setAttribute("alertMsg", "메뉴 수정 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","메뉴 수정 실패");
+            return "common/errorPage";
         }
-        */
-        model.addAttribute("errorMsg","비밀번호 불일치");
-        return "common/errorPage";
     }
     
     
     @RequestMapping("deleteForm.mn")
     public String goToDeleteForm() {
-        return "admin/deleteForm";
+        return "menu/deleteForm";
     }
     
     @RequestMapping("delete.mn")
-    public String deleteMenu(Admin adm
+    public String deleteMenu(int menuId
                             , HttpSession session
                             , Model model) {
+        System.out.println(menuId);
         // 입력 확인
-        /*
-        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+        if(menuId==0) {
             model.addAttribute("errorMsg","ID 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
-            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
+        
+        int result = menuService.deleteMenu(menuId);
+        
+        if(result > 0) {
+            model.addAttribute("alertMsg", "메뉴 삭제 성공");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","메뉴 삭제 실패");
             return "common/errorPage";
         }
-        
-        // 조회해서 비밀번호 같으면 삭제
-        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
-        
-        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
-
-            int result = adminService.deleteAdmin(adm.getAdminId());
-            
-            if(result>0) {
-                session.setAttribute("alertMsg", "삭제 완료");
-                return "redirect:/";
-            }else {
-                model.addAttribute("errorMsg","계정 삭제 실패");
-                
-                return "common/errorPage";
-            }
-        }
-        */
-        model.addAttribute("errorMsg","비밀번호 불일치");
-        return "common/errorPage";
-        
     }
     
 
     @RequestMapping("selectForm.mn")
     public String goToSelectForm() {
-        return "admin/selectForm";
+        return "menu/selectForm";
     }
     
     @ResponseBody
     @RequestMapping(value="selectMenu.mn",produces="application/json; charset=UTF-8")
-    public String selectAdmin(String menuNm) {
-        return new Gson().toJson(menuService.selectMenu(menuNm));
+    public String selectMenu(int menuId) {
+        return new Gson().toJson(menuService.selectMenu(menuId));
     }
     
     @ResponseBody
     @RequestMapping(value="selectMenuList.mn",produces="application/json; charset=UTF-8")
     public String selectMenuList(HttpSession session, Model model) {
-        ArrayList<Menu> list = menuService.selectMenuList();
-        return new Gson().toJson(list);
+        return new Gson().toJson(menuService.selectMenuList());
     }
     
 }

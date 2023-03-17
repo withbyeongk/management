@@ -25,13 +25,29 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public int insertMenu(String menuNm) {
-        return menuDao.insertMenu(sqlSession, menuNm);
+    public Menu selectMenu(int menuId) {
+        return menuDao.selectMenu(sqlSession, menuId);
+    }
+    
+    @Override
+    public int insertMenu(Menu menu) {
+        return menuDao.insertMenu(sqlSession, menu);
     }
 
     @Override
     public ArrayList<Menu> selectMenuList() {
         return menuDao.selectMenuList(sqlSession);
     }
+
+    @Override
+    public int deleteMenu(int menuId) {
+        return menuDao.deleteMenu(sqlSession, menuId);
+    }
+
+    @Override
+    public int updateMenu(Menu menu) {
+        return menuDao.updateMenu(sqlSession, menu);
+    }
+
     
 }

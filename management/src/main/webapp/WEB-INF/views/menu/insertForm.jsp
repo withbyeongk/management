@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>계정 등록 페이지</title>
+<title>메뉴 등록 페이지</title>
 </head>
 <body>
-    <h1>계정 등록</h1>
+    <h1>메뉴 등록</h1>
     <br><hr><br>
     <form action="insert.mn" method="post">
         <div class="insert-group">
@@ -18,13 +18,13 @@
             <input type="text" class="insertMenu" id="menuUrl" name="menuUrl" required><br>
             
             <label for="menuRefId">부모ID : </label>
-            <input type="number" class="menuRefId" id="menuRefId" name="menuRefId" required><br>
+            <input type="number" class="menuRefId" id="menuRefId" name="menuRefId" value="0"><br>
             
             <label for="menuLevel">레벨 : </label>
-            <input type="number" class="insertMenu" id="menuLevel" name="menuLevel" required><br>
+            <input type="number" class="insertMenu" id="menuLevel" name="menuLevel" value="0"><br>
             
             <label for="menuOrder">순서 : </label>
-            <input type="number" class="insertMenu" id="menuOrder" name="menuOrder" required><br>
+            <input type="number" class="insertMenu" id="menuOrder" name="menuOrder" value="0"><br>
         </div><br>
         <div class="insert-btn" align="center">
             <button type="submit" class="enrollBtn">메뉴 등록</button>

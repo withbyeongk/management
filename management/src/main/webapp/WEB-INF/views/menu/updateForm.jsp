@@ -4,30 +4,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>계정 수정 페이지</title>
+<title>메뉴 수정 페이지</title>
 </head>
 <body>
-    <h1>계정 수정</h1>
+    <h1>메뉴 수정</h1>
     <br><hr><br>
-    <form action="update.ad" method="post">
-        <div class="insert-group">
-            <label for="adminId">ID : </label>
-            <input type="text" class="insertAdmin" id="adminId" name="adminId" required><br>
+    <form action="update.mn" method="post">
+        <div class="update-group">
+            <label for="menuId">ID : </label>
+            <input type="number" class="updateMenu" id="menuId" name="menuId" value="0" required><br>
             
-            <label for="adminPw">PW : </label>
-            <input type="text" class="insertAdmin" id="adminPw" name="adminPw" required><br>
+            <label for="menuNm">NAME : </label>
+            <input type="text" class="updateMenu" id="menuNm" name="menuNm" required><br>
             
-            <label for="adminNewPw">New : </label>
-            <input type="text" class="insertAdmin" id="adminNewPw" name="adminNewPw" required><br>
+            <label for="menuUrl">URL : </label>
+            <input type="text" class="updateMenu" id="menuUrl" name="menuUrl" required><br>
             
-            <label for="adminChk">확인 : </label>
-            <input type="text" class="insertAdmin" id="adminChk" name="adminChk" required><br>
+            <label for="menuRefId">상위메뉴ID : </label>
+            <input type="number" class="updateMenu" id="menuRefId" name="menuRefId" value="0" required><br>
             
-            <label for="adminNm">이름 : </label>
-            <input type="text" class="insertAdmin" id="adminNm" name="adminNm" required><br>
+            <label for="menuLevel">LEVEL : </label>
+            <input type="number" class="updateMenu" id="menuLevel" name="menuLevel" value="0" required><br>
+            
+            <label for="menuOrder">ORDER : </label>
+            <input type="number" class="updateMenu" id="menuOrder" name="menuOrder" value="0" required><br>
         </div><br>
-        <div class="insert-btn" align="center">
-            <button type="submit" class="enrollBtn">계정 수정</button>
+        <div class="update-btn" align="center">
+            <button type="submit" class="updateBtn">메뉴 수정</button>
             <button type="reset">초기화</button>
         </div>
     </form>

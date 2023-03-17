@@ -11,9 +11,15 @@ import com.iron.management.menu.model.vo.Menu;
 public interface MenuService {
 
     Menu selectMenu(String menuNm);
+    
+    Menu selectMenu(int menuId);
 
-    int insertMenu(String menuNm);
+    int insertMenu(Menu menu);
 
     ArrayList<Menu> selectMenuList();
+
+    int deleteMenu(int menuId);
+
+    int updateMenu(Menu menu);
 
 }
