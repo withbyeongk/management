@@ -4,21 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MAIN PAGE</title>
+<title>메뉴 삭제</title>
 </head>
 <body>
-	<h1>계정 정보 삭제</h1>
+	<h1>메뉴 정보 삭제</h1>
     <br><hr><br>
-    <form action="delete.ad" method="post">
+    <form action="delete.mn" method="post">
             <div class="delete-group">
-                <label for="adminId">ID : </label>
-                <input type="text" class="deleteAdmin" id="adminId" name="adminId" required><br>
-                
-                <label for="adminPw">PW : </label>
-                <input type="text" class="deleteAdmin" id="adminPw" name="adminPw" required><br>
+                <label for="menuId">메뉴 ID : </label>
+                <input type="number" class="deleteMenu" id="menuId" name="menuId" value="0" required><br>
             </div><br>
             <div class="delete-btn" align="center">
-                <button type="submit" class="deleteBtn">계정 삭제</button>
+                <button type="submit" class="deleteBtn">메뉴 삭제</button>
                 <button type="reset">초기화</button>
             </div>
         </form>

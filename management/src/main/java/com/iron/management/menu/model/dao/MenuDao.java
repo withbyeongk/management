@@ -11,15 +11,32 @@ import com.iron.management.menu.model.vo.Menu;
 public class MenuDao {
     
     public Menu selectMenu(SqlSessionTemplate sqlSession, String menuNm) {
-        return sqlSession.selectOne("menuMapper.selectMenu",menuNm);
+        return sqlSession.selectOne("menuMapper.selectMenuByName",menuNm);
+    }
+    
+    public Menu selectMenu(SqlSessionTemplate sqlSession, int menuId) {
+        return sqlSession.selectOne("menuMapper.selectMenuById",menuId);
     }
 
-    public int insertMenu(SqlSessionTemplate sqlSession, String menuNm) {
-        return sqlSession.insert("menuMapper.insertMenu",menuNm);
+    public int insertMenu(SqlSessionTemplate sqlSession, Menu menu) {
+        return sqlSession.insert("menuMapper.insertMenu",menu);
     }
 
     public ArrayList<Menu> selectMenuList(SqlSessionTemplate sqlSession) {
         return (ArrayList)sqlSession.selectList("menuMapper.selectMenuList");
+    }
+
+    public int deleteMenu(SqlSessionTemplate sqlSession, int menuId) {
+        return sqlSession.delete("menuMapper.deleteMenu", menuId);
+    }
+
+    public int updateMenu(SqlSessionTemplate sqlSession, Menu menu) {
+        int result = 1;
+        result *= sqlSession.update("menuMapper.updateBeforeSort", menu);
+        result *= sqlSession.update("menuMapper.updateAfterSort", menu);
+        result *= sqlSession.update("menuMapper.updateMoveMenu", menu);
+        result *= sqlSession.update("menuMapper.updateMenuInfo", menu);
+        return result;
     }
 
 }
