@@ -42,5 +42,15 @@ public class SiteServiceImpl implements SiteService {
     public ArrayList<Site> selectSiteList() {
         return siteDao.selectSiteList(sqlSession);
     }
+
+    @Override
+    public int grantAccess(Site site) {
+        return siteDao.grantAccess(sqlSession, site);
+    }
+
+    @Override
+    public int revokeAccess(Site site) {
+        return siteDao.revokeAccess(sqlSession, site);
+    }
 	
 }

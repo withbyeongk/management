@@ -20,4 +20,10 @@ public interface SiteService {
 	
 	ArrayList<Site> selectSiteList();
 
+	// 접근 권한 부여
+    int grantAccess(Site site);
+
+    // 접근 권한 제거
+    int revokeAccess(Site site);
+
 }

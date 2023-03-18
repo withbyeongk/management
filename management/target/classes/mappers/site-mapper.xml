@@ -45,4 +45,24 @@
            SET SITE_NM = #{siteNm}
          WHERE SITE_ID = #{siteId}
     </update>
+    
+    <insert id="grantAccess">
+        INSERT INTO SITE_ACCESS (
+                                  ADMIN_ID
+                                , SITE_ID
+                                , ACCESS_YN
+                                )
+                        VALUES (
+                                  #{adminId}
+                                , #{siteId}
+                                , 'Y'
+                                )
+    </insert>
+    
+    <update id="revokeAccess">
+        UPDATE SITE_ACCESS
+           SET ACCESS_YN = 'N'
+         WHERE ADMIN_ID  = #{adminId}
+           AND SITE_ID   = #{siteId}
+    </update>
 </mapper>

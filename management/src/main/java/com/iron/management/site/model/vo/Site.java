@@ -6,4 +6,7 @@ import lombok.Data;
 public class Site {
     private String siteId;
     private String siteNm;
+    
+    //access관련
+    private String adminId;
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.iron.management.admin.model.service.AdminService;
+import com.iron.management.admin.model.vo.Admin;
 import com.iron.management.site.model.service.SiteService;
 import com.iron.management.site.model.vo.Site;
 
@@ -18,6 +20,9 @@ public class SiteController {
 	
 	@Autowired
 	private SiteService siteService;
+	
+	@Autowired
+    private AdminService adminService;
 	
     @RequestMapping("insertForm.st")
     public String goToInsertForm() {
@@ -117,7 +122,7 @@ public class SiteController {
             return "common/errorPage";
         }
         
-     // 입력한 ID로 조회하여 중복 확인
+        // 입력한 ID로 조회하여 중복 확인
         Site dbSite = siteService.selectSite(site.getSiteId());
         if(dbSite == null) {
             model.addAttribute("errorMsg","존재하는 사이트ID가 아님");
@@ -155,5 +160,90 @@ public class SiteController {
         return new Gson().toJson(siteService.selectSiteList());
     }
     
+
+    @RequestMapping("accessForm.st")
+    public String goToAccessForm() {
+        return "site/accessForm";
+    }
+    
+    @RequestMapping("grantAccess.st")
+    public String grantAccess(Site site
+                            , HttpSession session
+                            , Model model) {
+        // 입력 확인
+        if(site.getAdminId()==null || "".equals(site.getAdminId())) {
+            model.addAttribute("errorMsg","A ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(site.getSiteId()==null || "".equals(site.getSiteId())) {
+            model.addAttribute("errorMsg","SITE ID 입력 필요");
+            return "common/errorPage";
+        }
+        
+        // 입력한 ID로 조회하여 중복 확인
+        Admin dbAdmin = adminService.selectAdmin(site.getAdminId());
+        if(dbAdmin == null) {
+            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+            return "common/errorPage";
+        }
+        
+        Site dbSite = siteService.selectSite(site.getSiteId());
+        if(dbSite == null) {
+            model.addAttribute("errorMsg","존재하는 사이트ID가 아님");
+            return "common/errorPage";
+        }
+        
+        int result = siteService.grantAccess(site);
+        
+        if(result>0) {
+            session.setAttribute("alertMsg", "사이트 권한 부여 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","사이트 권한 부여 실패");
+            
+            return "common/errorPage";
+        }
+        
+    }
+    
+    @RequestMapping("revokeAccess.st")
+    public String  revokeAccess(Site site
+                            , HttpSession session
+                            , Model model) {
+        // 입력 확인
+        if(site.getAdminId()==null || "".equals(site.getAdminId())) {
+            model.addAttribute("errorMsg","A ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(site.getSiteId()==null || "".equals(site.getSiteId())) {
+            model.addAttribute("errorMsg","SITE ID 입력 필요");
+            return "common/errorPage";
+        }
+        
+        // 입력한 ID로 조회하여 중복 확인
+        Admin dbAdmin = adminService.selectAdmin(site.getAdminId());
+        if(dbAdmin == null) {
+            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+            return "common/errorPage";
+        }
+        
+        Site dbSite = siteService.selectSite(site.getSiteId());
+        if(dbSite == null) {
+            model.addAttribute("errorMsg","존재하는 사이트ID가 아님");
+            return "common/errorPage";
+        }
+        
+        int result = siteService.revokeAccess(site);
+        
+        if(result>0) {
+            session.setAttribute("alertMsg", "사이트 권한 제거 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","사이트 권한 제거 실패");
+            
+            return "common/errorPage";
+        }
+        
+    }
     
 }
