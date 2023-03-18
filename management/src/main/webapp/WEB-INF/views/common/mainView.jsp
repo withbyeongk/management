@@ -28,6 +28,8 @@
         <button type="button" onclick="location.href='deleteForm.mn';">메뉴 삭제</button>
         <br><hr><br>
         <button type="button" onclick="location.href='selectForm.mn';">메뉴 정보 조회</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='accessForm.mn';">메뉴 권한</button>
         <br><hr><hr><br>
         
         <h1>사이트 관리</h1>
@@ -38,6 +40,8 @@
         <button type="button" onclick="location.href='deleteForm.st';">사이트 삭제</button>
         <br><hr><br>
         <button type="button" onclick="location.href='selectForm.st';">사이트 정보 조회</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='accessForm.st';">사이트 권한</button>
         <br><hr><hr><br>
         
 	</div>
