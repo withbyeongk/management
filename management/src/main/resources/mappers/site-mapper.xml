@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="siteMapper">
+    
+    
+    <resultMap type="site" id="siteResultSet">
+        <result column="SITE_ID" property="siteId" />
+        <result column="SITE_NM" property="siteNm" />
+    </resultMap>
+    
+    <select id="selectSiteList" resultMap="siteResultSet">
+        SELECT SITE_ID
+             , SITE_NM
+          FROM SITE
+    </select>
+    
+    <select id="selectSite" resultMap="siteResultSet" parameterType="String">
+        SELECT SITE_ID
+             , SITE_NM
+          FROM SITE
+         WHERE SITE_ID = #{siteId}
+    </select>
+    
+    <insert id="insertSite" parameterType="site">
+        INSERT INTO SITE (
+                          SITE_ID
+                        , SITE_NM
+                        )
+                VALUES (
+                          #{siteId}
+                        , #{siteNm}
+                        )
+    </insert>
+    
+    <delete id="deleteSite">
+        DELETE
+          FROM SITE
+         WHERE SITE_ID = #{siteId}
+    </delete>
+    
+    <update id="updateSite">
+        UPDATE SITE
+           SET SITE_NM = #{siteNm}
+         WHERE SITE_ID = #{siteId}
+    </update>
+</mapper>

@@ -1,7 +1,5 @@
 package com.iron.management.site.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.iron.management.admin.model.vo.Admin;
 import com.iron.management.site.model.service.SiteService;
 import com.iron.management.site.model.vo.Site;
 
@@ -21,11 +18,6 @@ public class SiteController {
 	
 	@Autowired
 	private SiteService siteService;
-	
-	@RequestMapping("home.go")
-    public String goToHome() {
-        return "redirect:/";
-    }
 	
     @RequestMapping("insertForm.st")
     public String goToInsertForm() {
