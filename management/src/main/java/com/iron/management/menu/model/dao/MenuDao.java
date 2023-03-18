@@ -39,4 +39,12 @@ public class MenuDao {
         return result;
     }
 
+    public int grantAccess(SqlSessionTemplate sqlSession, Menu menu) {
+        return sqlSession.insert("menuMapper.grantAccess", menu);
+    }
+
+    public int revokeAccess(SqlSessionTemplate sqlSession, Menu menu) {
+        return sqlSession.update("menuMapper.revokeAccess", menu);
+    }
+
 }

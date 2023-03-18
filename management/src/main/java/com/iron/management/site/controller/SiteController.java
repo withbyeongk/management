@@ -236,10 +236,10 @@ public class SiteController {
         int result = siteService.revokeAccess(site);
         
         if(result>0) {
-            session.setAttribute("alertMsg", "사이트 권한 제거 완료");
+            session.setAttribute("alertMsg", "사이트 권한 회수 완료");
             return "redirect:/";
         }else {
-            model.addAttribute("errorMsg","사이트 권한 제거 실패");
+            model.addAttribute("errorMsg","사이트 권한 회수 실패");
             
             return "common/errorPage";
         }

@@ -18,4 +18,7 @@ public class Menu {
     private Date menuMdfDate;
     private Date menuRegDate;
     
+    // 접근 권한 관련
+    private String adminId;
+    
 }

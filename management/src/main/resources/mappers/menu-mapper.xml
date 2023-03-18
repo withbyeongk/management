@@ -143,4 +143,24 @@
              , MENU_MDF_DATE = NOW()
          WHERE MENU_ID = #{menuId}
     </update>
+    
+    <insert id="grantAccess">
+        INSERT INTO MENU_ACCESS (
+                                  ADMIN_ID
+                                , MENU_ID
+                                , ACCESS_YN
+                                )
+                        VALUES (
+                                  #{adminId}
+                                , #{menuId}
+                                , 'Y'
+                                )
+    </insert>
+    
+    <update id="revokeAccess">
+        UPDATE MENU_ACCESS
+           SET ACCESS_YN = 'N'
+         WHERE ADMIN_ID  = #{adminId}
+           AND MENU_ID   = #{menuId}
+    </update>
 </mapper>

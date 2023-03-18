@@ -1,7 +1,5 @@
 package com.iron.management.menu.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.iron.management.admin.model.service.AdminService;
 import com.iron.management.admin.model.vo.Admin;
 import com.iron.management.menu.model.service.MenuService;
 import com.iron.management.menu.model.vo.Menu;
+import com.iron.management.site.model.vo.Site;
 
 @Controller
 public class MenuController {
     
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private AdminService adminService;
     
     @RequestMapping("insertForm.mn")
     public String goToInsertForm() {
@@ -161,6 +164,92 @@ public class MenuController {
     @RequestMapping(value="selectMenuList.mn",produces="application/json; charset=UTF-8")
     public String selectMenuList(HttpSession session, Model model) {
         return new Gson().toJson(menuService.selectMenuList());
+    }
+    
+
+    @RequestMapping("accessForm.mn")
+    public String goToAccessForm() {
+        return "menu/accessForm";
+    }
+    
+    @RequestMapping("grantAccess.mn")
+    public String grantAccess(Menu menu
+                            , HttpSession session
+                            , Model model) {
+        // 입력 확인
+        if(menu.getAdminId()==null || "".equals(menu.getAdminId())) {
+            model.addAttribute("errorMsg","A ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(menu.getMenuId()==0) {
+            model.addAttribute("errorMsg","SITE ID 입력 필요");
+            return "common/errorPage";
+        }
+        
+        // 입력한 ID로 조회하여 중복 확인
+        Admin dbAdmin = adminService.selectAdmin(menu.getAdminId());
+        if(dbAdmin == null) {
+            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+            return "common/errorPage";
+        }
+        
+        Menu dbMenu = menuService.selectMenu(menu.getMenuId());
+        if(dbMenu == null) {
+            model.addAttribute("errorMsg","존재하는 메뉴ID가 아님");
+            return "common/errorPage";
+        }
+        
+        int result = menuService.grantAccess(menu);
+        
+        if(result>0) {
+            session.setAttribute("alertMsg", "사이트 권한 부여 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","사이트 권한 부여 실패");
+            
+            return "common/errorPage";
+        }
+        
+    }
+    
+    @RequestMapping("revokeAccess.mn")
+    public String  revokeAccess(Menu menu
+                            , HttpSession session
+                            , Model model) {
+        // 입력 확인
+        if(menu.getAdminId()==null || "".equals(menu.getAdminId())) {
+            model.addAttribute("errorMsg","A ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(menu.getMenuId()==0) {
+            model.addAttribute("errorMsg","SITE ID 입력 필요");
+            return "common/errorPage";
+        }
+        
+        // 입력한 ID로 조회하여 중복 확인
+        Admin dbAdmin = adminService.selectAdmin(menu.getAdminId());
+        if(dbAdmin == null) {
+            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+            return "common/errorPage";
+        }
+        
+        Menu dbMenu = menuService.selectMenu(menu.getMenuId());
+        if(dbMenu == null) {
+            model.addAttribute("errorMsg","존재하는 메뉴ID가 아님");
+            return "common/errorPage";
+        }
+        
+        int result = menuService.revokeAccess(menu);
+        
+        if(result>0) {
+            session.setAttribute("alertMsg", "사이트 권한 회수 완료");
+            return "redirect:/";
+        }else {
+            model.addAttribute("errorMsg","사이트 권한 회수 실패");
+            
+            return "common/errorPage";
+        }
+        
     }
     
 }
