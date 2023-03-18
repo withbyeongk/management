@@ -22,4 +22,10 @@ public interface MenuService {
 
     int updateMenu(Menu menu);
 
+    // 메뉴 접근권한 부여
+    int grantAccess(Menu menu);
+
+    // 메뉴 접근권한 회수
+    int revokeAccess(Menu menu);
+
 }

@@ -49,5 +49,15 @@ public class MenuServiceImpl implements MenuService{
         return menuDao.updateMenu(sqlSession, menu);
     }
 
+    @Override
+    public int grantAccess(Menu menu) {
+        return menuDao.grantAccess(sqlSession, menu);
+    }
+
+    @Override
+    public int revokeAccess(Menu menu) {
+        return menuDao.revokeAccess(sqlSession, menu);
+    }
+
     
 }
