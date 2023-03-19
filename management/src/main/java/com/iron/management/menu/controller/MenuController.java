@@ -57,7 +57,7 @@ public class MenuController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "메뉴 등록 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","메뉴 등록 실패");
             return "common/errorPage";
@@ -113,7 +113,7 @@ public class MenuController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "메뉴 수정 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","메뉴 수정 실패");
             return "common/errorPage";
@@ -141,7 +141,7 @@ public class MenuController {
         
         if(result > 0) {
             model.addAttribute("alertMsg", "메뉴 삭제 성공");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","메뉴 삭제 실패");
             return "common/errorPage";
@@ -203,7 +203,7 @@ public class MenuController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 권한 부여 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 권한 부여 실패");
             
@@ -243,7 +243,7 @@ public class MenuController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 권한 회수 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 권한 회수 실패");
             

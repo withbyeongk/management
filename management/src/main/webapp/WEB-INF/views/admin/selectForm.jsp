@@ -60,6 +60,6 @@
     	});
     </script>
     <br><hr><br>
-    <button type="button" onclick="location.href='home.go';">홈으로</button>
+    <button type="button" onclick="location.href='managePage.go';">관리홈으로</button>
 </body>
 </html>
