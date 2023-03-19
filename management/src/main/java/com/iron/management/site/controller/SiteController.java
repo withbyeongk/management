@@ -57,7 +57,7 @@ public class SiteController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "사이트 등록 완료");
-			return "redirect:/";
+			return "common/managePage";
 		}else {
 			model.addAttribute("errorMsg","사이트 등록 실패");
 			
@@ -97,7 +97,7 @@ public class SiteController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 수정 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 수정 실패");
             
@@ -133,7 +133,7 @@ public class SiteController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 삭제 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 삭제 실패");
             
@@ -197,7 +197,7 @@ public class SiteController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 권한 부여 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 권한 부여 실패");
             
@@ -237,7 +237,7 @@ public class SiteController {
         
         if(result>0) {
             session.setAttribute("alertMsg", "사이트 권한 회수 완료");
-            return "redirect:/";
+            return "common/managePage";
         }else {
             model.addAttribute("errorMsg","사이트 권한 회수 실패");
             

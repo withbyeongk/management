@@ -33,6 +33,53 @@ public class AdminController {
         return "redirect:/";
     }
 	
+	@RequestMapping("managePage.go")
+	public String goToManage() {
+	    return "common/managePage";
+	}
+	
+	@RequestMapping("login.go")
+	public String login(Admin adm,
+                        HttpSession session,
+                        Model model) {
+	    
+	    // 입력 확인
+        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+            model.addAttribute("errorMsg","ID 입력 필요");
+            return "common/errorPage";
+        }
+        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+            model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
+            return "common/errorPage";
+        }
+        
+        // 입력한 ID로 조회하여 비밀번호 확인
+        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+        if(dbAdm == null) {
+            model.addAttribute("errorMsg","존재하지 않는 ID");
+            return "common/errorPage";
+        }
+        
+        if(bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw())) {
+            session.setAttribute("loginAdmin", dbAdm);
+            model.addAttribute("alertMsg", dbAdm.getAdminNm()+"님 환영합니다.");
+            return "common/managePage";
+        }
+        else {
+            model.addAttribute("errorMsg","비밀번호가 다릅니다.");
+            return "common/errorPage";
+        }
+        
+	}
+	
+	@RequestMapping("logout.go")
+	public String logout(HttpSession session,
+	                     Model model) {
+	    session.removeAttribute("loginAdmin");
+	    model.addAttribute("alertMsg", "로그아웃");
+	    return "redirect:/";
+	}
+	
     @RequestMapping("insertForm.ad")
     public String goToInsertForm() {
         return "admin/insertForm";
@@ -77,10 +124,10 @@ public class AdminController {
 		int result = adminService.insertAdmin(adm);
 		
 		if(result>0) {
-			session.setAttribute("alertMsg", "회원가입이 완료되었습니다.");
-			return "redirect:/";
+			session.setAttribute("alertMsg", "관리자 계정 추가 성공");
+			return "common/managePage";
 		}else {
-			model.addAttribute("errorMsg","회원가입 실패");
+			model.addAttribute("errorMsg","관리자 계정 추가 실패");
 			
 			return "common/errorPage";
 		}
@@ -131,7 +178,7 @@ public class AdminController {
                 
                 if(result>0) {
                     session.setAttribute("alertMsg", "수정 완료");
-                    return "redirect:/";
+                    return "common/managePage";
                 }else {
                     model.addAttribute("errorMsg","수정 실패");
                     return "common/errorPage";
@@ -175,7 +222,7 @@ public class AdminController {
             
             if(result>0) {
                 session.setAttribute("alertMsg", "삭제 완료");
-                return "redirect:/";
+                return "common/managePage";
             }else {
                 model.addAttribute("errorMsg","계정 삭제 실패");
                 
