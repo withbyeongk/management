@@ -7,6 +7,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>메인뷰</title>
     <style>
+        .imgDiv{
+            margin: auto;
+            width:80%;
+            height: 400px;
+            background-color: lightgray;
+        }
+        #mainImg{
+            width: 100%;
+            height: 100%;
+        }
         .main-login{
             width: 80%;
             height: 150px;
@@ -79,6 +89,10 @@
 </head>
 <body>
     <div class="main-outer">
+        <br>
+        <div class="imgDiv">
+            <img id="mainImg" src="resources/Img/mainImg.jpg" alt="이미지 없음">
+        </div>
         <h2 align="center">Admin Login</h2>
         <div class="main-login">
             <form action="login.go">
@@ -96,7 +110,6 @@
                 </div>
             </form>
         </div>
-        <button onclick="location.href='insertForm.ad'">회원등록 임시 버튼</button>
     </div>
 </body>
 </html>
