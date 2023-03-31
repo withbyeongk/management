@@ -12,9 +12,6 @@
 - 각 메뉴는 그룹별로 접근 권한이 다름
 - 메뉴는 각 사이트별로 각각 구성됨
 - 메뉴는 계층구조를 가짐
-- 규칙에 맞도록 코드 작성할 것
-  - SQL문 줄 맞출 것
-  - 별칭 지을 때 의미있게 지을 것
 
 # #데이터 모델링
 https://github.com/withbyeongk/management/blob/main/DataModeling.md
