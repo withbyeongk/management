@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.iron.management.admin.model.service.AdminService;
-import com.iron.management.admin.model.vo.Admin;
+import com.iron.management.user.model.vo.User;
 import com.iron.management.menu.model.service.MenuService;
 import com.iron.management.menu.model.vo.Menu;
-import com.iron.management.site.model.vo.Site;
+import com.iron.management.user.model.service.UserService;
 
 @Controller
 public class MenuController {
@@ -23,7 +22,7 @@ public class MenuController {
     private MenuService menuService;
 
     @Autowired
-    private AdminService adminService;
+    private UserService userService;
     
     @RequestMapping("insertForm.mn")
     public String goToInsertForm() {
@@ -177,7 +176,7 @@ public class MenuController {
                             , HttpSession session
                             , Model model) {
         // 입력 확인
-        if(menu.getAdminId()==null || "".equals(menu.getAdminId())) {
+        if(menu.getUserId()==null || "".equals(menu.getUserId())) {
             model.addAttribute("errorMsg","A ID 입력 필요");
             return "common/errorPage";
         }
@@ -187,9 +186,9 @@ public class MenuController {
         }
         
         // 입력한 ID로 조회하여 중복 확인
-        Admin dbAdmin = adminService.selectAdmin(menu.getAdminId());
-        if(dbAdmin == null) {
-            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+        User dbUser = userService.selectUser(menu.getUserId());
+        if(dbUser == null) {
+            model.addAttribute("errorMsg","존재하는 USER ID가 아님");
             return "common/errorPage";
         }
         
@@ -217,7 +216,7 @@ public class MenuController {
                             , HttpSession session
                             , Model model) {
         // 입력 확인
-        if(menu.getAdminId()==null || "".equals(menu.getAdminId())) {
+        if(menu.getUserId()==null || "".equals(menu.getUserId())) {
             model.addAttribute("errorMsg","A ID 입력 필요");
             return "common/errorPage";
         }
@@ -227,9 +226,9 @@ public class MenuController {
         }
         
         // 입력한 ID로 조회하여 중복 확인
-        Admin dbAdmin = adminService.selectAdmin(menu.getAdminId());
-        if(dbAdmin == null) {
-            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+        User dbUser = userService.selectUser(menu.getUserId());
+        if(dbUser == null) {
+            model.addAttribute("errorMsg","존재하는 USER ID가 아님");
             return "common/errorPage";
         }
         

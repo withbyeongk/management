@@ -19,6 +19,6 @@ public class Menu {
     private Date menuRegDate;
     
     // 접근 권한 관련
-    private String adminId;
+    private String userId;
     
 }

@@ -9,13 +9,13 @@
 <body>
 	<h1>계정 정보 삭제</h1>
     <br><hr><br>
-    <form action="delete.ad" method="post">
+    <form action="delete.user" method="post">
             <div class="delete-group">
-                <label for="adminId">ID : </label>
-                <input type="text" class="deleteAdmin" id="adminId" name="adminId" required><br>
+                <label for="userId">ID : </label>
+                <input type="text" class="deleteAdmin" id="userId" name="userId" required><br>
                 
-                <label for="adminPw">PW : </label>
-                <input type="text" class="deleteAdmin" id="adminPw" name="adminPw" required><br>
+                <label for=""userPw"">PW : </label>
+                <input type="text" class="deleteUser" id=""userPw"" name="userPw" required><br>
             </div><br>
             <div class="delete-btn" align="center">
                 <button type="submit" class="deleteBtn">계정 삭제</button>

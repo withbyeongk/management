@@ -3,7 +3,7 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="com.iron.management.admin.model.vo.Admin" alias="admin"/>
+		<typeAlias type="com.iron.management.user.model.vo.User" alias="user"/>
         <typeAlias type="com.iron.management.menu.model.vo.Menu" alias="menu"/>
         <typeAlias type="com.iron.management.site.model.vo.Site" alias="site"/>
 	</typeAliases>

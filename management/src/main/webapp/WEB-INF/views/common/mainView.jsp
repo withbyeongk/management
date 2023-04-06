@@ -73,13 +73,13 @@
 	    	font-size: 14px;
 		    font-weight: bold;
 	    }
-        #adminId:focus{
+        #userId:focus{
             outline: none !important;
         	border-color: #1b0ca3;
             box-shadow: 0 0 10px #1b0ca3;
             border: 1px solid #1b0ca3;
         }
-        #adminPw:focus{
+        #userPw:focus{
             outline: none !important;
         	border-color: #1b0ca3;
             box-shadow: 0 0 10px #1b0ca3;
@@ -93,23 +93,24 @@
         <div class="imgDiv">
             <img id="mainImg" src="resources/Img/mainImg.jpg" alt="이미지 없음">
         </div>
-        <h2 align="center">Admin Login</h2>
+        <h2 align="center">User Login</h2>
         <div class="main-login">
             <form action="login.go">
                 <div class="id-div">
-                    <label for="adminId">ADMIN ID : </label>
-                    <input type="text" class="login-input" id="adminId" name="adminId" placeholder="ID를 입력해 주세요.">
+                    <label for="userId">USER ID &nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                    <input type="text" class="login-input" id="userId" name="userId" placeholder="ID를 입력해 주세요.">
                 </div>
                 <br>
                 <div class="pw-div">
-                    <label for="adminPw">PASSWORD : </label>
-                    <input type="password" class="login-input" id="adminPw" name="adminPw" placeholder="비밀번호를 입력해 주세요.">
+                    <label for="userPw">PASSWORD : </label>
+                    <input type="password" class="login-input" id="userPw" name="userPw" placeholder="비밀번호를 입력해 주세요.">
                 </div>
                 <div class="login-btn">
                     <button id="loginBtn">LOGIN</button>
                 </div>
             </form>
         </div>
+        <button type="button" onclick="location.href='insertForm.user';">계정 등록</button>
     </div>
 </body>
 </html>

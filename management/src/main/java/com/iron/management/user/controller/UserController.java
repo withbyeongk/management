@@ -1,12 +1,8 @@
-package com.iron.management.admin.controller;
-
-import java.util.ArrayList;
+package com.iron.management.user.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.iron.management.admin.model.service.AdminService;
-import com.iron.management.admin.model.vo.Admin;
+import com.iron.management.user.model.service.UserService;
+import com.iron.management.user.model.vo.User;
 
 @Controller
-public class AdminController {
+public class UserController {
 	
 	@Autowired
-	private AdminService adminService;
+	private UserService userService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptpasswordEncoder;
@@ -39,30 +35,30 @@ public class AdminController {
 	}
 	
 	@RequestMapping("login.go")
-	public String login(Admin adm,
+	public String login(User user,
                         HttpSession session,
                         Model model) {
 	    
 	    // 입력 확인
-        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+        if(user.getUserId()==null || "".equals(user.getUserId())) {
             model.addAttribute("errorMsg","ID 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+        if(user.getUserPw()==null || "".equals(user.getUserPw())) {
             model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
             return "common/errorPage";
         }
         
         // 입력한 ID로 조회하여 비밀번호 확인
-        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
-        if(dbAdm == null) {
+        User dbUser = userService.selectUser(user.getUserId());
+        if(dbUser == null) {
             model.addAttribute("errorMsg","존재하지 않는 ID");
             return "common/errorPage";
         }
         
-        if(bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw())) {
-            session.setAttribute("loginAdmin", dbAdm);
-            model.addAttribute("alertMsg", dbAdm.getAdminNm()+"님 환영합니다.");
+        if(bcryptpasswordEncoder.matches(user.getUserPw(), dbUser.getUserPw())) {
+            session.setAttribute("loginUser", dbUser);
+            model.addAttribute("alertMsg", dbUser.getUserNm()+"님 환영합니다.");
             return "common/managePage";
         }
         else {
@@ -75,106 +71,106 @@ public class AdminController {
 	@RequestMapping("logout.go")
 	public String logout(HttpSession session,
 	                     Model model) {
-	    session.removeAttribute("loginAdmin");
+	    session.removeAttribute("loginUser");
 	    model.addAttribute("alertMsg", "로그아웃");
 	    return "redirect:/";
 	}
 	
-    @RequestMapping("insertForm.ad")
+    @RequestMapping("insertForm.user")
     public String goToInsertForm() {
-        return "admin/insertForm";
+        return "user/insertForm";
     }
     
 	// 계정 등록
-	@PostMapping("insert.ad")
-	public String insertAdmin(Admin adm,
+	@PostMapping("insert.user")
+	public String insertUser(User user,
 							HttpSession session,
 							Model model) {
 		
 	    // 입력 확인
-	    if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+	    if(user.getUserId()==null || "".equals(user.getUserId())) {
             model.addAttribute("errorMsg","ID 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+        if(user.getUserPw()==null || "".equals(user.getUserPw())) {
             model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminChk()==null || "".equals(adm.getAdminChk())) {
+        if(user.getUserChk()==null || "".equals(user.getUserChk())) {
             model.addAttribute("errorMsg","비밀번호 확인 다시 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminNm()==null || "".equals(adm.getAdminNm())) {
+        if(user.getUserNm()==null || "".equals(user.getUserNm())) {
             model.addAttribute("errorMsg","이름 입력 필요");
             return "common/errorPage";
         }
 	    
 	    
 	    // 입력한 ID로 조회하여 중복 확인
-	    Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
-	    if(dbAdm != null) {
+        User dbUser = userService.selectUser(user.getUserId());
+	    if(dbUser != null) {
 	        model.addAttribute("errorMsg","이미 존재하는 ID");
             return "common/errorPage";
 	    }
 	    
-		String encPw = bcryptpasswordEncoder.encode(adm.getAdminPw());
+		String encPw = bcryptpasswordEncoder.encode(user.getUserPw());
 		
-		adm.setAdminPw(encPw);
+		user.setUserPw(encPw);
 		
-		int result = adminService.insertAdmin(adm);
+		int result = userService.insertUser(user);
 		
 		if(result>0) {
-			session.setAttribute("alertMsg", "관리자 계정 추가 성공");
+			session.setAttribute("alertMsg", "사용자 계정 추가 성공");
 			return "common/managePage";
 		}else {
-			model.addAttribute("errorMsg","관리자 계정 추가 실패");
+			model.addAttribute("errorMsg","사용자 계정 추가 실패");
 			
 			return "common/errorPage";
 		}
 	}
 	
-	@RequestMapping("updateForm.ad")
+	@RequestMapping("updateForm.user")
 	public String goToUpdateForm() {
-	    return "admin/updateForm";
+	    return "user/updateForm";
 	}
 	
     // 계정 정보 수정
-	@RequestMapping("update.ad")
-    public String updateAdmin(Admin adm,
+	@RequestMapping("update.user")
+    public String updateAdmin(User user,
                             HttpSession session,
                             Model model) {
 
         // 입력 확인
-	    if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+	    if(user.getUserId()==null || "".equals(user.getUserId())) {
 	        model.addAttribute("errorMsg","ID 입력 필요");
             return "common/errorPage";
 	    }
-	    if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+	    if(user.getUserPw()==null || "".equals(user.getUserPw())) {
             model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
             return "common/errorPage";
         }
-	    if(adm.getAdminNewPw()==null || "".equals(adm.getAdminNewPw())) {
+	    if(user.getUserNewPw()==null || "".equals(user.getUserNewPw())) {
             model.addAttribute("errorMsg","새 비밀번호 입력 필요");
             return "common/errorPage";
         }
-	    if(adm.getAdminChk()==null || "".equals(adm.getAdminChk())) {
+	    if(user.getUserChk()==null || "".equals(user.getUserChk())) {
             model.addAttribute("errorMsg","새 비밀번호 확인 다시 입력");
             return "common/errorPage";
         }
 	    
 	    // 조회해서 비밀번호 같으면 수정
-	    Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+	    User dbUser = userService.selectUser(user.getUserId());
 	    
-        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
+        if( dbUser != null && bcryptpasswordEncoder.matches(user.getUserPw(), dbUser.getUserPw()) ) {
             
             
-            if(adm.getAdminNewPw().equals(adm.getAdminChk())) {
+            if(user.getUserNewPw().equals(user.getUserChk())) {
                 
                 // 새 비밀번호를 암호화하여 다시 담기
-                String encNewPw = bcryptpasswordEncoder.encode(adm.getAdminNewPw());
-                adm.setAdminNewPw(encNewPw);
+                String encNewPw = bcryptpasswordEncoder.encode(user.getUserNewPw());
+                user.setUserNewPw(encNewPw);
                 
-                int result = adminService.updateAdmin(adm);
+                int result = userService.updateUser(user);
                 
                 if(result>0) {
                     session.setAttribute("alertMsg", "수정 완료");
@@ -194,31 +190,31 @@ public class AdminController {
     }
 	
 	
-    @RequestMapping("deleteForm.ad")
+    @RequestMapping("deleteForm.user")
     public String goToDeleteForm() {
         return "admin/deleteForm";
     }
     
-    @RequestMapping("delete.ad")
-    public String deleteAdmin(Admin adm
+    @RequestMapping("delete.user")
+    public String deleteAdmin(User user
                             , HttpSession session
                             , Model model) {
         // 입력 확인
-        if(adm.getAdminId()==null || "".equals(adm.getAdminId())) {
+        if(user.getUserId()==null || "".equals(user.getUserId())) {
             model.addAttribute("errorMsg","ID 입력 필요");
             return "common/errorPage";
         }
-        if(adm.getAdminPw()==null || "".equals(adm.getAdminPw())) {
+        if(user.getUserPw()==null || "".equals(user.getUserPw())) {
             model.addAttribute("errorMsg","현재 비밀번호 입력 필요");
             return "common/errorPage";
         }
         
         // 조회해서 비밀번호 같으면 삭제
-        Admin dbAdm = adminService.selectAdmin(adm.getAdminId());
+        User dbUser = userService.selectUser(user.getUserId());
         
-        if( dbAdm != null && bcryptpasswordEncoder.matches(adm.getAdminPw(), dbAdm.getAdminPw()) ) {
+        if( dbUser != null && bcryptpasswordEncoder.matches(user.getUserPw(), dbUser.getUserPw()) ) {
 
-            int result = adminService.deleteAdmin(adm.getAdminId());
+            int result = userService.deleteUser(user.getUserId());
             
             if(result>0) {
                 session.setAttribute("alertMsg", "삭제 완료");
@@ -236,21 +232,21 @@ public class AdminController {
     }
     
 
-    @RequestMapping("selectForm.ad")
+    @RequestMapping("selectForm.user")
     public String goToSelectForm() {
-        return "admin/selectForm";
+        return "user/selectForm";
     }
     
     @ResponseBody
-    @RequestMapping(value="selectAdmin.ad",produces="application/json; charset=UTF-8")
-    public String selectAdmin(String adminId) {
-        return new Gson().toJson(adminService.selectAdmin(adminId));
+    @RequestMapping(value="selectUser.user",produces="application/json; charset=UTF-8")
+    public String selectuser(String userId) {
+        return new Gson().toJson(userService.selectUser(userId));
     }
     
     @ResponseBody
-    @RequestMapping(value="selectAdminList.ad",produces="application/json; charset=UTF-8")
+    @RequestMapping(value="selectUserList.user",produces="application/json; charset=UTF-8")
     public String selectAdminList(HttpSession session, Model model) {
-        return new Gson().toJson(adminService.selectAdminList());
+        return new Gson().toJson(userService.selectUserList());
     }
     
     

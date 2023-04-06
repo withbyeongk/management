@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.iron.management.admin.model.service.AdminService;
-import com.iron.management.admin.model.vo.Admin;
+import com.iron.management.user.model.service.UserService;
+import com.iron.management.user.model.vo.User;
 import com.iron.management.site.model.service.SiteService;
 import com.iron.management.site.model.vo.Site;
 
@@ -22,7 +22,7 @@ public class SiteController {
 	private SiteService siteService;
 	
 	@Autowired
-    private AdminService adminService;
+    private UserService userService;
 	
     @RequestMapping("insertForm.st")
     public String goToInsertForm() {
@@ -171,7 +171,7 @@ public class SiteController {
                             , HttpSession session
                             , Model model) {
         // 입력 확인
-        if(site.getAdminId()==null || "".equals(site.getAdminId())) {
+        if(site.getUserId()==null || "".equals(site.getUserId())) {
             model.addAttribute("errorMsg","A ID 입력 필요");
             return "common/errorPage";
         }
@@ -181,9 +181,9 @@ public class SiteController {
         }
         
         // 입력한 ID로 조회하여 중복 확인
-        Admin dbAdmin = adminService.selectAdmin(site.getAdminId());
-        if(dbAdmin == null) {
-            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+        User dbUser = userService.selectUser(site.getUserId());
+        if(dbUser == null) {
+            model.addAttribute("errorMsg","존재하는 USER ID가 아님");
             return "common/errorPage";
         }
         
@@ -211,7 +211,7 @@ public class SiteController {
                             , HttpSession session
                             , Model model) {
         // 입력 확인
-        if(site.getAdminId()==null || "".equals(site.getAdminId())) {
+        if(site.getUserId()==null || "".equals(site.getUserId())) {
             model.addAttribute("errorMsg","A ID 입력 필요");
             return "common/errorPage";
         }
@@ -221,9 +221,9 @@ public class SiteController {
         }
         
         // 입력한 ID로 조회하여 중복 확인
-        Admin dbAdmin = adminService.selectAdmin(site.getAdminId());
-        if(dbAdmin == null) {
-            model.addAttribute("errorMsg","존재하는 ADMIN ID가 아님");
+        User dbUser = userService.selectUser(site.getUserId());
+        if(dbUser == null) {
+            model.addAttribute("errorMsg","존재하는 USER ID가 아님");
             return "common/errorPage";
         }
         
