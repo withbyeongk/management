@@ -9,19 +9,19 @@
 <body>
     <h1>계정 등록</h1>
     <br><hr><br>
-    <form action="insert.ad" method="post">
+    <form action="insert.user" method="post">
         <div class="insert-group">
-            <label for="adminId">ID : </label>
-            <input type="text" class="insertAdmin" id="adminId" name="adminId" required><br>
+            <label for="userId">ID : </label>
+            <input type="text" class="insertAdmin" id="userId" name="userId" required><br>
             
-            <label for="adminPw">PW : </label>
-            <input type="text" class="insertAdmin" id="adminPw" name="adminPw" required><br>
+            <label for="userPw"">PW : </label>
+            <input type="text" class="insertUser" id="userPw" name="userPw" required><br>
             
-            <label for="adminChk">확인 : </label>
-            <input type="text" class="insertAdmin" id="adminChk" name="adminChk" required><br>
+            <label for="userChk">확인 : </label>
+            <input type="text" class="insertUser" id="userChk" name="userChk" required><br>
             
-            <label for="adminNm">이름 : </label>
-            <input type="text" class="insertAdmin" id="adminNm" name="adminNm" required><br>
+            <label for="userNm">이름 : </label>
+            <input type="text" class="insertUser" id="userNm" name="userNm" required><br>
         </div><br>
         <div class="insert-btn" align="center">
             <button type="submit" class="enrollBtn">등록</button>

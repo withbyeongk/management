@@ -8,5 +8,5 @@ public class Site {
     private String siteNm;
     
     //access관련
-    private String adminId;
+    private String userId;
 }

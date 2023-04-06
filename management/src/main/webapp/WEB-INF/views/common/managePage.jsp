@@ -11,13 +11,13 @@
 	<div class="mainDiv">
         <h1>계정 관리</h1>
         <br><hr><br>
-        <button type="button" onclick="location.href='insertForm.ad';">계정 등록</button>
+        <button type="button" onclick="location.href='insertForm.user';">계정 등록</button>
         <br><hr><br>
-        <button type="button" onclick="location.href='updateForm.ad';">계정 수정</button>
+        <button type="button" onclick="location.href='updateForm.user';">계정 수정</button>
         <br><hr><br>
-        <button type="button" onclick="location.href='deleteForm.ad';">계정 삭제</button>
+        <button type="button" onclick="location.href='deleteForm.user';">계정 삭제</button>
         <br><hr><br>
-        <button type="button" onclick="location.href='selectForm.ad';">계정 정보 조회</button>
+        <button type="button" onclick="location.href='selectForm.user';">계정 정보 조회</button>
         <br><hr><hr><br>
         
         <h1>메뉴 관리</h1>

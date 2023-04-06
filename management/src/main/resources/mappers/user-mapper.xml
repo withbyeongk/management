@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="userMapper">
+    
+    
+    <resultMap type="user" id="userResultSet">
+        <result column="USER_ID" property="userId" />
+        <result column="USER_PW" property="userPw" />
+        <result column="USER_NM" property="userNm" />
+        <result column="UPD_DTM" property="updDtm" />
+        <result column="REG_DTM" property="regDtm" />
+    </resultMap>
+    
+    <select id="selectUserList" resultMap="userResultSet">
+        SELECT USER_ID
+             , USER_PW
+             , USER_NM
+             , UPD_DTM
+             , REG_DTM
+          FROM CTADM_USER
+    </select>
+    
+    <select id="selectUser" resultMap="userResultSet" parameterType="String">
+        SELECT USER_ID
+             , USER_PW
+             , USER_NM
+             , UPD_DTM
+             , REG_DTM
+          FROM CTADM_USER
+         WHERE USER_ID = #{userId}
+    </select>
+    
+    <insert id="insertUser" parameterType="user">
+        INSERT INTO CTADM_USER (
+                          USER_ID
+                        , USER_PW
+                        , USER_NM
+                        , REG_DTM
+                        )
+                VALUES (
+                          #{userId}
+                        , #{userPw}
+                        , #{userNm}
+                        , NOW()
+                        )
+    </insert>
+    
+    <delete id="deleteUser">
+        DELETE
+          FROM CTADM_USER
+         WHERE USER_ID = #{userId}
+    </delete>
+    
+    <update id="updateUser">
+        UPDATE CTADM_USER
+           SET USER_PW = #{userNewPw}
+             , USER_NM = #{userNm}
+             , UPD_DTM = NOW()
+         WHERE USER_ID = #{userId}
+    </update>
+</mapper>
