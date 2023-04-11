@@ -59,7 +59,10 @@ public class UserController {
         if(bcryptpasswordEncoder.matches(user.getUserPw(), dbUser.getUserPw())) {
             session.setAttribute("loginUser", dbUser);
             model.addAttribute("alertMsg", dbUser.getUserNm()+"님 환영합니다.");
-            return "common/managePage";
+            if("super".equals(dbUser.getUserId()))
+                return "common/managePage";
+            else
+                return "common/userPage";
         }
         else {
             model.addAttribute("errorMsg","비밀번호가 다릅니다.");
