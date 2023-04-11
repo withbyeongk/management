@@ -1,100 +1,162 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page - super</title>
+    <title>영역</title>
     <style>
-        .user-outer{
-            margin: auto;
-            margin-top: 30px;
-            width: 1000px;
-            height: 700px;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
         }
-        .first-row{
-            width:100%;
-            height:330px;
+        #container {
+            display: flex;
+            height: 800px;
         }
-        .second-row{
-            width:100%;
-            height:330px;
+        #nav {
+            width: 20%;
+            background-color: #ead9d9;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
         }
-        .column-common{
-            width:490px;
-            height: 320px;
-            border-radius: 20px;
-            cursor : pointer;
+        #nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
-        .col1{
-            float: left;
-            margin-right: 10px;
-            background-color: rgb(252, 207, 213);
+        #nav li {
+            margin-bottom: 10px;
         }
-        .col2{
-            float: left;
-            background-color: rgb(245, 200, 183);
+        #nav a {
+            display: block;
+            padding: 10px;
+            background-color: #b84949;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
-        .col3{
-            float: left;
-            margin-right: 10px;
-            background-color: rgb(253, 253, 163);
+        #nav a:hover {
+            background-color: #ff9292;
+            font-weight: bold;
+            color: #ffffff;
         }
-        .col4{
-            float: left;
-            background-color: rgb(248, 201, 248);
+        #content {
+            width: 80%;
+            background-color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
         }
-
-        /* font */
-        .user-outer h1{
-            color :rgb(16, 14, 16);
+        #content h1 {
+            margin-top: 0;
         }
-        .user-outer h2{
-            color: rgb(81, 81, 132);
+        .hide {
+            display: none;
         }
-
     </style>
 </head>
 <body>
-    <div class="user-outer">
-        <h1 align="center">ADMIN 관리자 페이지</h1>
-        <div class="first-row">
-            <div class="col1 column-common">
-                <h2 align="center">USER 관리</h2>
-                
-                
-            </div>
-            <div class="col2 column-common">
-                <h2 align="center">GROUP 관리</h2>
-            </div>
+    <div id="container">
+        <div id="nav">
+            <ul>
+                <li><a href="#menu-user">USER</a></li>
+                <li><a href="#menu-group">GROUP</a></li>
+                <li><a href="#menu-site">SITE</a></li>
+            </ul>
         </div>
-        <div class="second-row">
-            <div class="col3 column-common">
-                <h2 align="center">SITE 관리</h2>
+        <div id="content">
+            <div id="menu-user" class="hide">
+                <h1>USER</h1>
+                <br>
+                <div class="">
+                    <span>사용자 목록</span>
+                    <button>목록 새로 고침</button>
+                    <table id="user-table">
+                        <thead>
+                            <th>USER ID</th>
+                            <th>USER NAME</th>
+                            <th>GROUP</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                            <tr>
+                                <td>iron</td>
+                                <td>아이언</td>
+                                <td>개발팀</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
-            <div class="col4 column-common">
-                <h2 align="center">SECTION 4(준비 중)</h2>
+            <div id="menu-group" class="hide">
+                <h1>GROUP</h1>
+                <p>GROUP 상세페이지 내용입니다.</p>
+            </div>
+            <div id="menu-site" class="hide">
+                <h1>SITE</h1>
+                <p>SITE 상세페이지 내용입니다.</p>
             </div>
         </div>
     </div>
     <script>
-        let clkOnCol1 = document.querySelector(".col1");
-        clkOnCol1.addEventListener("click", function(){
-            location.href="";
-        });
-        let clkOnCol2 = document.querySelector(".col2");
-        clkOnCol2.addEventListener("click", function(){
-            location.href="";
-        });
-        let clkOnCol3 = document.querySelector(".col3");
-        clkOnCol3.addEventListener("click", function(){
-            location.href="";
-        });
-        let clkOnCol4 = document.querySelector(".col4");
-        clkOnCol4.addEventListener("click", function(){
-            location.href="";
+        const menuLinks = document.querySelectorAll("#nav a");
+        const contents = document.querySelectorAll("#content > div");
+        menuLinks.forEach((menuLink) => {
+            menuLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                const targetId = menuLink.getAttribute("href").substring(1);
+                contents.forEach((content) => {
+                    if (content.id === targetId) {
+                        content.classList.remove("hide");
+                    } else {
+                        content.classList.add("hide");
+                    }
+                });
+            });
         });
     </script>
 </body>
