@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>영역</title>
+    <title>USER PAGE</title>
     <style>
         body {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         #container {
             display: flex;
-            height: 800px;
+            height: 1000px;
         }
         #nav {
             width: 20%;
@@ -77,7 +77,7 @@
                     <button>목록 새로 고침</button>
                     <table id="user-table">
                         <thead>
-                            <th>USER ID</th>
+                            <th>USER ID</th>wpf 
                             <th>USER NAME</th>
                             <th>GROUP</th>
                         </thead>
