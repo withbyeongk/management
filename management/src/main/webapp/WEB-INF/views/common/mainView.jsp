@@ -95,7 +95,7 @@
         </div>
         <h2 align="center">User Login</h2>
         <div class="main-login">
-            <form action="login.go">
+            <form action="login.go" method="post">
                 <div class="id-div">
                     <label for="userId">USER ID &nbsp;&nbsp;&nbsp;&nbsp;:</label>
                     <input type="text" class="login-input" id="userId" name="userId" placeholder="ID를 입력해 주세요.">
