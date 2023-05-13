@@ -10,7 +10,3 @@
 
 # #데이터 모델링
 https://github.com/withbyeongk/management/blob/main/DataModeling.md
-
-# #계획
-1. 변경된 DB에 맞도록 쿼리 수정.
-2. 프론트 페이지 개발(후순위)
