@@ -14,6 +14,7 @@ public class User {
 	private String userPw;
 	private String userNewPw;
 	private String userChk;
+	private String groupId;
 	private String userNm;
 	private Date updDtm;
 	private Date regDtm;

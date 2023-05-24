@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>계정 등록 페이지</title>
+<title>사용자 등록 페이지</title>
 </head>
 <body>
-    <h1>계정 등록</h1>
+    <h1>사용자 등록</h1>
     <br><hr><br>
     <form action="insert.user" method="post">
         <div class="insert-group">
