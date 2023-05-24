@@ -7,7 +7,7 @@
 <title>MAIN PAGE</title>
 </head>
 <body>
-	<h1>계정 정보 삭제</h1>
+	<h1>사용자 정보 삭제</h1>
     <br><hr><br>
     <form action="delete.user" method="post">
             <div class="delete-group">

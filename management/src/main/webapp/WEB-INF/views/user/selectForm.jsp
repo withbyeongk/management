@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>계정 조회 페이지</title>
+<title>사용자 조회 페이지</title>
 </head>
 <body>
-    <h1>계정 정보 조회</h1>
+    <h1>사용자 정보 조회</h1>
     <br><hr><br>
     <label for="userId">ID : </label>
     <input type="text" class="insertUser" id="userId" name="userId" required><br><br>
