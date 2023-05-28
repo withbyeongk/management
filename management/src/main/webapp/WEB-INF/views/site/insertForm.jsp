@@ -14,8 +14,11 @@
             <label for="siteId">사이트ID : </label>
             <input type="text" class="insertSite" id="siteId" name="siteId" required><br>
             
-            <label for="siteNm">사이트명 : </label>
-            <input type="text" class="insertSite" id="siteNm" name="siteNm" required><br>
+            <label for="siteUrl">사이트 URL : </label>
+            <input type="text" class="insertSite" id="siteUrl" name="siteUrl" required><br>
+            
+            <label for="siteComment">사이트 설명 : </label>
+            <input type="text" class="insertSite" id="siteComment" name="siteComment" required><br>
             
         </div><br>
         <div class="insert-btn" align="center">

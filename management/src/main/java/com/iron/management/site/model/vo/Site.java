@@ -5,7 +5,8 @@ import lombok.Data;
 @Data
 public class Site {
     private String siteId;
-    private String siteNm;
+    private String siteUrl;
+    private String siteComment;
     
     //access관련
     private String userId;

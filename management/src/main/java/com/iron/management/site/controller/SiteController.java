@@ -40,8 +40,12 @@ public class SiteController {
             model.addAttribute("errorMsg","SITE ID 입력 필요");
             return "common/errorPage";
         }
-        if(site.getSiteNm()==null || "".equals(site.getSiteNm())) {
-            model.addAttribute("errorMsg","사이트 이름 입력 필요");
+        if(site.getSiteUrl()==null || "".equals(site.getSiteUrl())) {
+            model.addAttribute("errorMsg","사이트 URL 입력 필요");
+            return "common/errorPage";
+        }
+        if(site.getSiteComment()==null || "".equals(site.getSiteComment())) {
+            model.addAttribute("errorMsg","사이트 설명 입력 필요");
             return "common/errorPage";
         }
 	    
@@ -81,8 +85,12 @@ public class SiteController {
 	        model.addAttribute("errorMsg","SITE ID 입력 필요");
             return "common/errorPage";
 	    }
-	    if(site.getSiteNm()==null || "".equals(site.getSiteNm())) {
+	    if(site.getSiteUrl()==null || "".equals(site.getSiteUrl())) {
             model.addAttribute("errorMsg","사이트명 입력 필요");
+            return "common/errorPage";
+        }
+	    if(site.getSiteComment()==null || "".equals(site.getSiteComment())) {
+            model.addAttribute("errorMsg","사이트 설명 입력 필요");
             return "common/errorPage";
         }
 	    
@@ -103,7 +111,6 @@ public class SiteController {
             
             return "common/errorPage";
         }
-	    
     }
 	
 	
