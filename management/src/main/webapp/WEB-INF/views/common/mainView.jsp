@@ -6,86 +6,7 @@
 	<meta charset="UTF-8">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>메인뷰</title>
-    <style>
-        .imgDiv{
-            margin: auto;
-            width:80%;
-            height: 400px;
-            background-color: lightgray;
-        }
-        #mainImg{
-            width: 100%;
-            height: 100%;
-        }
-        .main-login{
-            width: 80%;
-            height: 150px;
-            background-color: rgb(241, 235, 235);/*rgb(245, 207, 212)*/
-            border: 1px solid rgba(79, 71, 201, 0.589);
-            margin: auto;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-        h2{
-            margin-top: 5%;
-            color: rgb(73, 73, 187);
-        }
-
-        .main-login{
-            margin:auto;
-            margin-top: 5%;
-        }
-        .id-div{
-            margin-top:35px;
-            text-align: center;
-        }
-        .pw-div{
-            text-align: center;
-        }
-        .login-input{
-            height: 25px;
-            border: 1px solid lightgray;
-            padding-left: 3%;
-            border-radius: 50px;
-            background-color: rgb(255, 255, 255);
-        }
-
-        label{
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: rgb(102, 102, 202);
-            margin-right: 15px;
-        }
-        #loginBtn{
-            width: 100px;
-            height: 30px;
-            background-color: rgb(90, 20, 219);
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            vertical-align: middle;
-            float: right;
-            margin-top: 60px;
-            margin-right: 100px;
-        }
-        #loginBtn:hover{
-	    	font-size: 14px;
-		    font-weight: bold;
-	    }
-        #userId:focus{
-            outline: none !important;
-        	border-color: #1b0ca3;
-            box-shadow: 0 0 10px #1b0ca3;
-            border: 1px solid #1b0ca3;
-        }
-        #userPw:focus{
-            outline: none !important;
-        	border-color: #1b0ca3;
-            box-shadow: 0 0 10px #1b0ca3;
-            border: 1px solid #1b0ca3;
-        }
-    </style>
+	<link rel="stylesheet" href="resources/css/common/mainView.css" type="text/css">
 </head>
 <body>
     <div class="main-outer">
@@ -111,6 +32,7 @@
             </form>
         </div>
         <button type="button" onclick="location.href='insertForm.user';">계정 등록</button>
+        <button type="button" onclick="location.href='newManage.go';">새 메뉴페이지</button>
     </div>
 </body>
 </html>

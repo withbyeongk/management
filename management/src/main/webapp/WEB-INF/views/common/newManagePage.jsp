@@ -4,137 +4,73 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>USER PAGE</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        #container {
-            display: flex;
-            height: 1000px;
-        }
-        #nav {
-            width: 20%;
-            background-color: #ead9d9;
-            padding: 20px;
-            box-sizing: border-box;
-            height: 100%;
-        }
-        #nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        #nav li {
-            margin-bottom: 10px;
-        }
-        #nav a {
-            display: block;
-            padding: 10px;
-            background-color: #b84949;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        #nav a:hover {
-            background-color: #ff9292;
-            font-weight: bold;
-            color: #ffffff;
-        }
-        #content {
-            width: 80%;
-            background-color: #ffffff;
-            padding: 20px;
-            box-sizing: border-box;
-            height: 100%;
-        }
-        #content h1 {
-            margin-top: 0;
-        }
-        .hide {
-            display: none;
-        }
-    </style>
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="resources/css/common/newManagePage.css" type="text/css">
 </head>
 <body>
     <div id="container">
         <div id="nav">
             <ul>
-                <li><a href="#menu-user">USER</a></li>
-                <li><a href="#menu-group">GROUP</a></li>
-                <li><a href="#menu-site">SITE</a></li>
+                <li><a href="#menu-user">사용자 관리</a></li>
+                <li><a href="#menu-group">그룹 관리</a></li>
+                <li><a href="#menu-site">사이트 관리</a></li>
+                <li><a href="#menu-access">접근권한 관리</a></li>
             </ul>
         </div>
         <div id="content">
             <div id="menu-user" class="hide">
                 <h1>USER</h1>
                 <br>
-                <div class="">
+                <div class="area-user">
                     <span>사용자 목록</span>
                     <button>목록 새로 고침</button>
                     <table id="user-table">
                         <thead>
-                            <th>USER ID</th>wpf 
-                            <th>USER NAME</th>
-                            <th>GROUP</th>
+	                        <tr>
+	                            <th>USER ID</th>
+	                            <th>USER NAME</th>
+	                            <th>GROUP</th>
+	                            <th>정보수정일시</th>
+	                            <th>사용자등록일시</th>
+	                        </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>iron</td>
                                 <td>아이언</td>
                                 <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
-                                <td>아이언</td>
-                                <td>개발팀</td>
-                            </tr>
-                            <tr>
-                                <td>iron</td>
                                 <td>아이언</td>
                                 <td>개발팀</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                
-            </div>
+            </div><!-- 사용자 DIV 끝 -->
             <div id="menu-group" class="hide">
                 <h1>GROUP</h1>
-                <p>GROUP 상세페이지 내용입니다.</p>
+                <br>
+                <div class="area-group">
+                    <span>그룹 목록</span>
+                    <button>그룹목록 새로 고침</button>
+                    <table id="group-table">
+                        <thead>
+	                        <tr>
+	                            <th>GROUP ID</th>
+	                            <th>GROUP NAME</th>
+	                            <th>정보수정일시</th>
+	                            <th>사용자등록일시</th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DEV</td>
+                                <td>개발팀</td>
+                                <td>수정일시</td>
+                                <td>등록일시</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div id="menu-site" class="hide">
                 <h1>SITE</h1>
@@ -142,6 +78,7 @@
             </div>
         </div>
     </div>
+    <script type="script" src="resources/js/common/newManagePage.js"></script>
     <script>
         const menuLinks = document.querySelectorAll("#nav a");
         const contents = document.querySelectorAll("#content > div");
