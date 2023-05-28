@@ -24,15 +24,6 @@ public class UserController {
 	private BCryptPasswordEncoder bcryptpasswordEncoder;
 	
 	
-	@RequestMapping("home.go")
-    public String goToHome() {
-        return "redirect:/";
-    }
-	
-	@RequestMapping("managePage.go")
-	public String goToManage() {
-	    return "common/managePage";
-	}
 	
 	@RequestMapping("login.go")
 	public String login(User user,
