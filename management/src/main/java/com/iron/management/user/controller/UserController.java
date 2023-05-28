@@ -139,7 +139,7 @@ public class UserController {
 	
     // 계정 정보 수정
 	@RequestMapping("update.user")
-    public String updateAdmin(User user,
+    public String updateUser(User user,
                             HttpSession session,
                             Model model) {
 
@@ -195,11 +195,11 @@ public class UserController {
 	
     @RequestMapping("deleteForm.user")
     public String goToDeleteForm() {
-        return "admin/deleteForm";
+        return "user/deleteForm";
     }
     
     @RequestMapping("delete.user")
-    public String deleteAdmin(User user
+    public String deleteUser(User user
                             , HttpSession session
                             , Model model) {
         // 입력 확인
@@ -248,7 +248,7 @@ public class UserController {
     
     @ResponseBody
     @RequestMapping(value="selectUserList.user",produces="application/json; charset=UTF-8")
-    public String selectAdminList(HttpSession session, Model model) {
+    public String selectUserList(HttpSession session, Model model) {
         return new Gson().toJson(userService.selectUserList());
     }
     

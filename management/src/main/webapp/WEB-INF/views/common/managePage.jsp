@@ -20,6 +20,17 @@
         <button type="button" onclick="location.href='selectForm.user';">계정 정보 조회</button>
         <br><hr><hr><br>
         
+        <h1>그룹 관리</h1>
+        <br><hr><br>
+        <button type="button" onclick="location.href='insertForm.group';">그룹 등록</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='updateForm.group';">그룹 수정</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='deleteForm.group';">그룹 삭제</button>
+        <br><hr><br>
+        <button type="button" onclick="location.href='selectForm.group';">그룹 정보 조회</button>
+        <br><hr><hr><br>
+        
         <h1>메뉴 관리</h1>
         <button type="button" onclick="location.href='insertForm.mn';">메뉴 등록</button>
         <br><hr><br>
