@@ -27,7 +27,7 @@ public class SiteDao {
     }
 
     public ArrayList<Site> selectSiteList(SqlSessionTemplate sqlSession) {
-        return (ArrayList)sqlSession.selectList("siteMapper.deleteSite");
+        return (ArrayList)sqlSession.selectList("siteMapper.selectSiteList");
     }
 
     public int grantAccess(SqlSessionTemplate sqlSession, Site site) {

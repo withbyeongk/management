@@ -7,62 +7,68 @@
     
     <resultMap type="site" id="siteResultSet">
         <result column="SITE_ID" property="siteId" />
-        <result column="SITE_NM" property="siteNm" />
+        <result column="SITE_URL" property="siteUrl" />
+        <result column="SITE_COMMENT" property="siteComment" />
     </resultMap>
     
     <select id="selectSiteList" resultMap="siteResultSet">
         SELECT SITE_ID
-             , SITE_NM
-          FROM SITE
+             , SITE_URL
+             , SITE_COMMENT
+          FROM CTADM_SITE
     </select>
     
     <select id="selectSite" resultMap="siteResultSet" parameterType="String">
         SELECT SITE_ID
-             , SITE_NM
-          FROM SITE
+             , SITE_URL
+             , SITE_COMMENT
+          FROM CTADM_SITE
          WHERE SITE_ID = #{siteId}
     </select>
     
     <insert id="insertSite" parameterType="site">
-        INSERT INTO SITE (
+        INSERT INTO CTADM_SITE (
                           SITE_ID
-                        , SITE_NM
+                        , SITE_URL
+                        , SITE_COMMENT
                         )
                 VALUES (
                           #{siteId}
-                        , #{siteNm}
+                        , #{siteUrl}
+                        , #{siteComment}
                         )
     </insert>
     
     <delete id="deleteSite">
         DELETE
-          FROM SITE
+          FROM CTADM_SITE
          WHERE SITE_ID = #{siteId}
     </delete>
     
     <update id="updateSite">
-        UPDATE SITE
-           SET SITE_NM = #{siteNm}
+        UPDATE CTADM_SITE
+           SET SITE_URL = #{siteUrl}
+             , SITE_COMMENT = #{siteComment}
          WHERE SITE_ID = #{siteId}
     </update>
     
     <insert id="grantAccess">
-        INSERT INTO SITE_ACCESS (
-                                  ADMIN_ID
+        INSERT INTO CTADM_SITE_ACCESS (
+                                  USER_ID
                                 , SITE_ID
                                 , ACCESS_YN
                                 )
                         VALUES (
-                                  #{adminId}
+                                  #{userId}
                                 , #{siteId}
                                 , 'Y'
                                 )
     </insert>
     
     <update id="revokeAccess">
-        UPDATE SITE_ACCESS
+        UPDATE CTADM_SITE_ACCESS
            SET ACCESS_YN = 'N'
-         WHERE ADMIN_ID  = #{adminId}
+         WHERE USER_ID  = #{userId}
            AND SITE_ID   = #{siteId}
     </update>
 </mapper>

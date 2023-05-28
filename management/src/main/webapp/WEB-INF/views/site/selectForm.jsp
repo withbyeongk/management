@@ -21,7 +21,7 @@
 				url : "selectSite.st",
 				data : { siteId : $("#siteId").val() },
 				success : function(site){
-					$("#selectOneDiv").text("ID : " + site.siteId + ", 이름 : " + site.siteNm);
+					$("#selectOneDiv").text("ID : " + site.siteId + ", URL : " + site.siteUrl + ", 설명 : " + site.siteComment);
 				},
 				error : function(){
 					console.log("통신 실패");
@@ -42,11 +42,12 @@
     				url : "selectSiteList.st",
     				success : function(list){
 						var str = "";
-						
+
 						for(var i in list){
 							str += "<tr>"
 								  +"<td>"+list[i].siteId+"</td>"
-								  +"<td>"+list[i].siteNm+"</td>"
+								  +"<td>"+list[i].siteUrl+"</td>"
+								  +"<td>"+list[i].siteComment+"</td>"
 								  +"</tr>";  
 						}
 						$("#selectListDiv").html(str);
