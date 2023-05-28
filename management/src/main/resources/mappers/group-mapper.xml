@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="groupMapper">
+    
+    
+    <resultMap type="group" id="groupResultSet">
+        <result column="GROUP_ID" property="groupId" />
+        <result column="GROUP_NM" property="groupNm" />
+        <result column="UPD_DTM" property="updDtm" />
+        <result column="REG_DTM" property="regDtm" />
+    </resultMap>
+    
+    <select id="selectGroupList" resultMap="groupResultSet">
+        SELECT GROUP_ID
+             , GROUP_NM
+             , UPD_DTM
+             , REG_DTM
+          FROM CTADM_GROUP
+    </select>
+    
+    <select id="selectGroup" resultMap="groupResultSet" parameterType="String">
+        SELECT GROUP_ID
+             , GROUP_NM
+             , UPD_DTM
+             , REG_DTM
+          FROM CTADM_GROUP
+         WHERE GROUP_ID = #{groupId}
+    </select>
+    
+    <insert id="insertGroup" parameterType="group">
+        INSERT INTO CTADM_GROUP (
+                          GROUP_ID
+                        , GROUP_NM
+                        , UPD_DTM
+                        , REG_DTM
+                        )
+                VALUES (
+                          #{groupId}
+                        , #{groupNm}
+                        , NOW()
+                        , NOW()
+                        )
+    </insert>
+    
+    <delete id="deleteGroup">
+        DELETE
+          FROM CTADM_GROUP
+         WHERE GROUP_ID = #{groupId}
+    </delete>
+    
+    <update id="updateGroup">
+        UPDATE CTADM_GROUP
+           SET GROUP_NM = #{groupNm}
+             , UPD_DTM = NOW()
+         WHERE GROUP_ID = #{groupId}
+    </update>
+</mapper>
